@@ -1,0 +1,20 @@
+---
+
+- name: Install apps (without checksum)
+  include_tasks: app.yml
+  vars:
+    name: "{{ item.name }}"
+    url: "{{ item.url }}"
+    app: "{{ item.app }}"
+  with_items: "{{ app_packages }}"
+  when: item.checksum is not defined
+
+- name: Install apps (with checksum)
+  include_tasks: app.yml
+  vars:
+    name: "{{ item.name }}"
+    url: "{{ item.url }}"
+    app: "{{ item.app }}"
+    checksum: "{{ item.checksum }}"
+  when: item.checksum is defined
+  

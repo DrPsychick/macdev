@@ -1,0 +1,31 @@
+---
+
+# defaults
+user_group: staff
+
+# roles
+role_ssh: yes
+role_pip: yes
+role_brew: yes
+role_app: yes
+
+# files
+files:
+
+# templates
+templates:
+  - { name: .bashrc, path: $HOME/.bashrc }
+  - { name: .bash_aliases, path: $HOME/.bash_aliases }
+
+brew_packages:
+  - { name: gnupg, path: /usr/local/bin/gpg }
+
+pip_packages:
+  - { name: awscli, path: /usr/local/bin/aws } 
+
+# supports .zip and .dmg
+app_packages:
+  - { name: iTerm2, app: "iTerm", url: https://iterm2.com/downloads/stable/iTerm2-3_3_2.zip }
+  - { name: Atom, app: "Atom", url: https://github.com/atom/atom/releases/download/v1.40.1/atom-mac.zip }
+  - { name: Chrome, app: "Google Chrome", url: https://dl.google.com/chrome/mac/stable/GCEA/googlechrome.dmg }
+

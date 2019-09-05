@@ -1,0 +1,10 @@
+---
+
+- name: Load system paths from user profile
+  lineinfile:
+    dest: $HOME/.profile
+    regexp: "^[#]?source /etc/profile"
+    line: "source /etc/profile"
+    create: yes
+  #remote_user: "{{ ansible_user_id }}"
+

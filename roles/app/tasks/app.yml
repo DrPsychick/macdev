@@ -1,0 +1,36 @@
+---
+
+- name: "Check if app '{{app}}' is installed"
+  stat: path="/Applications/{{ app }}.app"
+  register: installed_app
+
+- name: "Download '{{ app }}'"
+  get_url:
+    url: "{{ url }}"
+    dest: "$HOME/Downloads"
+  register: get_plain
+  when: not installed_app.stat.exists and checksum is not defined
+
+- name: "Download '{{ app }}' (with checksum)"
+  get_url:
+    url: "{{ url }}"
+    dest: "$HOME/Downloads"
+    checksum: "{{ checksum }}"
+  register: get_chksum
+  when: not installed_app.stat.exists and checksum is defined
+
+- name: Set facts (downloaded file)
+  set_fact:
+    dest: "{{ get_plain.dest if get_plain is not skipped else get_chksum.dest if get_chksum is not skipped }}"
+  failed_when: get_plain is skipped and get_chksum is skipped
+  when: not installed_app.stat.exists
+
+- name: "Extract + install '{{ app }}' (dmg)"
+  shell: hdiutil mount {{ dest }} && rsync -auv "/Volumes/{{ app }}/{{ app }}.app" /Applications && hdiutil unmount "/Volumes/{{ app }}"
+  when: not installed_app.stat.exists and url|regex_replace('.*\.([a-z]{3})', '\\1') == "dmg"
+
+- name: "Extract + install '{{ app }}' (zip)"
+  shell: cd $HOME/Downloads; unzip {{ dest }} && rsync -auv "$HOME/Downloads/{{ app }}.app" /Applications
+  when: not installed_app.stat.exists and url|regex_replace('.*\.([a-z]{3})', '\\1') == "zip"
+
+

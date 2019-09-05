@@ -1,0 +1,11 @@
+---
+
+# - name: Check pip version
+
+- name: Install packages
+  shell: pip3 install {{ item.name }}
+  args:
+    executable: /bin/bash
+    creates: "{{ item.path }}"
+  with_items: "{{ pip_packages }}"
+
