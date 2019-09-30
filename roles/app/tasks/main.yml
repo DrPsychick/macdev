@@ -7,7 +7,7 @@
     url: "{{ item.url }}"
     app: "{{ item.app }}"
   with_items: "{{ app_packages }}"
-  when: item.checksum is not defined
+  when: app_packages[0] is defined and item.checksum is not defined
 
 - name: Install apps (with checksum)
   include_tasks: app.yml
@@ -16,5 +16,6 @@
     url: "{{ item.url }}"
     app: "{{ item.app }}"
     checksum: "{{ item.checksum }}"
-  when: item.checksum is defined
+  with_items: "{{ app_packages }}"
+  when: app_packages[0] is defined and item.checksum is defined
   

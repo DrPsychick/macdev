@@ -1,7 +1,9 @@
 ---
 
 # defaults
-user_group: staff
+user_group: admin
+# will set ACL and chgrp for /usr/local/Homebrew|Caskroom|Celler|bin
+brew_multiuser: no
 
 # roles
 role_ssh: yes
@@ -9,23 +11,43 @@ role_pip: yes
 role_brew: yes
 role_app: yes
 
-# files
-files:
+# files and templates:
+# overwrite: replace file on target, if it exists
+# shell: source file in .profile
 
-# templates
+# files you want to copy to the target
+files:
+  - { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
+
+# templates you want to copy to the target
 templates:
-  - { name: .bashrc, path: $HOME/.bashrc }
-  - { name: .bash_aliases, path: $HOME/.bash_aliases }
+  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true, shell: true }
+  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, shell: true }
+
+# instead of copying a file or template, you can define aliases one by one
+shell_aliases:
+#  - { name: "ll", cmd: "ls -lahG" }
 
 brew_packages:
   - { name: gnupg, path: /usr/local/bin/gpg }
 
+brew_cask_packages:
+  - { name: docker, path: /Applications/Docker.app }
+  - { name: iterm2, path: /Applications/iTerm.app }
+  - { name: google-chrome, path: /Applications/Google Chrome.app }
+  - { name: atom, path: /Applications/Atom.app }
+  #- { name: slack, path: /Applications/Slack.app }
+  #- { name: macpass, path: /Applications/MacPass.app }
+  #- { name: openoffice, path: /Applications/OpenOffice.app }
+  #- { name: gimp, path: /Applications/Gimp-2.10.app }
+
 pip_packages:
+  - { name: ansible, path: /usr/local/bin/ansible }
   - { name: awscli, path: /usr/local/bin/aws } 
 
 # supports .zip and .dmg
 app_packages:
-  - { name: iTerm2, app: "iTerm", url: https://iterm2.com/downloads/stable/iTerm2-3_3_2.zip }
-  - { name: Atom, app: "Atom", url: https://github.com/atom/atom/releases/download/v1.40.1/atom-mac.zip }
-  - { name: Chrome, app: "Google Chrome", url: https://dl.google.com/chrome/mac/stable/GCEA/googlechrome.dmg }
+  # - { name: iTerm2, app: "iTerm", url: https://iterm2.com/downloads/stable/iTerm2-3_3_2.zip } # brew install iterm2
+  # - { name: Atom, app: "Atom", url: https://github.com/atom/atom/releases/download/v1.40.1/atom-mac.zip } # brew install atom
+  # - { name: Chrome, app: "Google Chrome", url: https://dl.google.com/chrome/mac/stable/GCEA/googlechrome.dmg } # brew install google-chrome
 

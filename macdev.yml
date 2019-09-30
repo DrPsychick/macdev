@@ -5,6 +5,7 @@
     BASH_ENV: "~/.profile" # required to load the local environment (PATH etc.)
   roles:
     - { role: env }
-    - { role: ssh, when: role_ssh }
-    - { role: pip, when: role_pip }
-    - { role: app, when: role_app }
+    - { role: ssh, when: role_ssh|bool }
+    - { role: pip, when: role_pip|bool }
+    - { role: brew, when: role_brew|bool }
+    - { role: app, when: role_app|bool }

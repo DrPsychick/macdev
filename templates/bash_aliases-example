@@ -1,0 +1,2 @@
+# put your aliases here, then run the playbook
+alias ll='ls -lahG'

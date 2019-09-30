@@ -1,6 +1,6 @@
 ---
 
-- name: "Check if app '{{app}}' is installed"
+- name: "Check if app '{{ app }}' is installed"
   stat: path="/Applications/{{ app }}.app"
   register: installed_app
 

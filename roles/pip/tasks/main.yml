@@ -2,8 +2,8 @@
 
 # - name: Check pip version
 
-- name: Install packages
-  shell: pip3 install {{ item.name }}
+- name: Install+Upgrade packages
+  shell: pip3 install -U {{ item.name }}
   args:
     executable: /bin/bash
     creates: "{{ item.path }}"
