@@ -10,6 +10,7 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 
 ## ideas/planned features
 [ ] support multiple environments for pip (virtualenv) 
+  [ ] support both python2 and python3 (pip vs. pip3)
 [x] support adding brew casks
 [ ] find a solution to always install the latest version of of an app (maintain download URLs)
   [ ] add a flag through which you can force install to update apps (most apps ask to update themselves though)
