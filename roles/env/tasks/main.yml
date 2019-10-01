@@ -41,10 +41,20 @@
   with_items: "{{ templates }}"
   when: templates[0] is defined
 
-- name: Load them in shell environment (.profile)
+- name: Load files in shell environment (.profile)
+  lineinfile:
+    dest: $HOME/.profile
+    regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
+    line: "source {{ item.path }}"
+  with_items: "{{ files }}"
+  when: files[0] is defined
+
+- name: Load templates in shell environment (.profile)
   lineinfile:
     dest: $HOME/.profile
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
   with_items: "{{ templates }}"
+  when: templates[0] is defined
+
 

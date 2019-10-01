@@ -30,6 +30,7 @@ shell_aliases:
 
 brew_packages:
   - { name: gnupg, path: /usr/local/bin/gpg }
+  - { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
 
 brew_cask_packages:
   - { name: docker, path: /Applications/Docker.app }
