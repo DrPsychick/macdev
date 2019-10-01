@@ -1,7 +1,10 @@
 ---
 
 - name: SSH directory permissions
-  file: path=$HOME/.ssh owner={{ ansible_user_id }} group={{ user_group }} mode=0755
+  file: path=$HOME/.ssh owner={{ ansible_user_id }} group={{ user_group }} mode=0700
 
-- name: SSH key permissions
+- name: SSH private key permissions
   file: path=$HOME/.ssh/id_rsa owner={{ ansible_user_id }} group={{ user_group }} mode=0600
+
+- name: SSH public key permission
+  file: path=$HOME/.ssh/id_rsa.pub owner={{ ansible_user_id }} group={{ user_group }} mode=0644
