@@ -21,7 +21,7 @@
 - name: Upgrade homebrew
   shell: brew upgrade
   register: brew_upgrade
-  changed_when: brew_upgrade.stdout|length > 0
+  changed_when: brew_upgrade.stdout|length > 1
 
 - name: Install brew packages
   shell: brew install {{ item.name }}

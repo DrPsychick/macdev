@@ -29,8 +29,20 @@ shell_aliases:
 #  - { name: "ll", cmd: "ls -lahG" }
 
 brew_packages:
+  - { name: python, path: /usr/local/Cellar/python }
+  - { name: jq, path: /usr/local/bin/jq }
   - { name: gnupg, path: /usr/local/bin/gpg }
   - { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
+  - { name: kubernetes-cli, path: /usr/local/bin/kubectl }
+  - { name: kubectx, path: /usr/local/bin/kubectx }
+  - { name: hub, path: /usr/local/bin/hub }
+  - { name: go, path: /usr/local/bin/go }
+  #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
+  - { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
+  - { name: node, path: /usr/local/bin/node }
+  - { name: telegraf, path: /usr/local/bin/telegraf }
+  - { name: mtr, path: /usr/local/sbin/mtr }
+  - { name: smartmontools, path: /usr/local/bin/smartctl }
 
 brew_cask_packages:
   - { name: docker, path: /Applications/Docker.app }
