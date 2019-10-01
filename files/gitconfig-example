@@ -1,0 +1,11 @@
+[user]
+  name = My Name
+  email = my@email.address
+[core]
+  editor = vim
+[push]
+  default = simple
+
+# enforce git URLs, using ssh instead of https or vice versa
+[url "git@my.service:username"]
+  insteadOf = "https://my.service/username"

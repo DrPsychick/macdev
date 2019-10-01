@@ -17,7 +17,7 @@ role_app: yes
 
 # files you want to copy to the target
 files:
-  - { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
+  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true, shell: false }
 
 # templates you want to copy to the target
 templates:

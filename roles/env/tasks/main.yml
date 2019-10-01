@@ -26,6 +26,7 @@
 - name: Copy files
   copy: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode=0755
   with_items: "{{ files }}"
+  when: files[0] is defined
 
 # fails if a file exists that should not be overwritten
 - name: Check for existing template files without overwrite
@@ -38,6 +39,7 @@
 - name: Copy templates
   template: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode=0755
   with_items: "{{ templates }}"
+  when: templates[0] is defined
 
 - name: Load them in shell environment (.profile)
   lineinfile:
