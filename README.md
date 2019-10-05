@@ -3,6 +3,8 @@ I hate it when I need to setup a computer from scratch, but from time to time I 
 
 It is **not** meant to be used for linux or windows environments and **not** meant to support setting up a remote host. It's just a tiny helper to automate installing all the tools and software you expect on your local machine.
 
+**compare with** https://github.com/geerlingguy/mac-dev-playbook as it may make this repo obsolete.
+
 ## features
 * setup the environment (.profile/.bashrc/...)
 * install brew / pip3 packages
