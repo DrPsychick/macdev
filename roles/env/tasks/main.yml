@@ -47,7 +47,7 @@
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
   with_items: "{{ files }}"
-  when: files[0] is defined
+  when: files[0] is defined and item.shell
 
 - name: Load templates in shell environment (.profile)
   lineinfile:
@@ -55,6 +55,6 @@
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
   with_items: "{{ templates }}"
-  when: templates[0] is defined
+  when: templates[0] is defined and item.shell
 
 
