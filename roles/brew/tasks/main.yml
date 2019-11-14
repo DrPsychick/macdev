@@ -21,7 +21,7 @@
 - name: Upgrade homebrew
   shell: brew upgrade
   register: brew_upgrade
-  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|search("No changes to formulae.")
+  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
 
 - name: Install brew packages
   shell: brew install {{ item.name }}
