@@ -9,7 +9,7 @@ brew_multiuser: no
 role_ssh: yes
 role_pip: yes
 role_brew: yes
-role_app: yes
+role_app: no
 
 # files and templates:
 # overwrite: replace file on target, if it exists
@@ -30,6 +30,8 @@ shell_aliases:
 
 brew_packages:
   - { name: python, path: /usr/local/Cellar/python }
+  - { name: gnupg, path: /usr/local/bin/gpg }
+  - { name: pwgen, path: /usr/local/bin/pwgen }
   - { name: jq, path: /usr/local/bin/jq }
   - { name: gnupg, path: /usr/local/bin/gpg }
   - { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
@@ -49,10 +51,12 @@ brew_cask_packages:
   - { name: iterm2, path: /Applications/iTerm.app }
   - { name: google-chrome, path: /Applications/Google Chrome.app }
   - { name: atom, path: /Applications/Atom.app }
+  - { name: postman, path: /Applications/Postman.app }
   #- { name: slack, path: /Applications/Slack.app }
   #- { name: macpass, path: /Applications/MacPass.app }
   #- { name: openoffice, path: /Applications/OpenOffice.app }
   #- { name: gimp, path: /Applications/Gimp-2.10.app }
+  - { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
 
 pip_packages:
   - { name: ansible, path: /usr/local/bin/ansible }
