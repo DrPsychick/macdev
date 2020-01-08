@@ -45,6 +45,7 @@ brew_packages:
   - { name: telegraf, path: /usr/local/bin/telegraf }
   - { name: mtr, path: /usr/local/sbin/mtr }
   - { name: smartmontools, path: /usr/local/bin/smartctl }
+  - { name: glances, path: /usr/local/bin/glances }
 
 brew_cask_packages:
   - { name: docker, path: /Applications/Docker.app }
