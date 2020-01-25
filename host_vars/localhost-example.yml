@@ -26,7 +26,7 @@ templates:
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
-#  - { name: "ll", cmd: "ls -lahG" }
+  - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
 
 brew_packages:
   - { name: python, path: /usr/local/Cellar/python }
