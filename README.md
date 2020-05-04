@@ -15,6 +15,7 @@ It is **not** meant to be used for linux or windows environments and **not** mea
   * [ ] support both python2 and python3 (pip vs. pip3)
 * [x] support adding brew casks
 * [ ] (maybe) add a flag through which you can force install to update apps (most apps ask to update themselves though)
+* [ ] maybe add some OSX setting stuff used here: https://github.com/roberth1988/osx-bootstrap
 
 # usage
 ## prerequisites
