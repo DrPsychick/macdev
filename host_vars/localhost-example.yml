@@ -45,6 +45,7 @@ brew_packages:
   - { name: mtr, path: /usr/local/sbin/mtr }
   - { name: smartmontools, path: /usr/local/bin/smartctl }
   - { name: glances, path: /usr/local/bin/glances }
+  #- { name: ask-cli, path: /usr/local/bin/ask }
 
 brew_cask_packages:
   - { name: docker, path: /Applications/Docker.app }
@@ -59,6 +60,10 @@ brew_cask_packages:
   #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
   #- { name: spectacle, path: "/Applications/Spectacle.app" }
   #- { name: drawio, path: "/Applications/draw.io.app" }
+  #- { name: krita, path: "/Applications/krita.app" }
+  #- { name: obs, path: "/Applications/OBS.app" }
+  #- { name: moonlight, path: "/Applications/Moonlight.app" }
+  #- { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
 
 pip_packages:
   - { name: ansible, path: /usr/local/bin/ansible }
