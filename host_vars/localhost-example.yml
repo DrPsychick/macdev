@@ -29,7 +29,7 @@ shell_aliases:
   - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
 
 brew_packages:
-  - { name: python, path: /usr/local/Cellar/python }
+  - { name: python, path: /usr/local/bin/python3 }
   - { name: pwgen, path: /usr/local/bin/pwgen }
   - { name: jq, path: /usr/local/bin/jq }
   - { name: gnupg, path: /usr/local/bin/gpg }
