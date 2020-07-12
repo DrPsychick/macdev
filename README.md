@@ -22,8 +22,8 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 * install homebrew: https://brew.sh
 * install python/pip `brew install python`
 * install ansible: `pip3 install ansible`
-* enable SSH access on your mac (Preferences -> Sharing -> Remote login)
-* (optionally) run `setup.sh` and follow the instructions (creates ~/.ssh directory and asks you to add your SSH key)
+* ~~enable SSH access on your mac (Preferences -> Sharing -> Remote login)~~ (not needed)
+* ~~(optionally) run `setup.sh` and follow the instructions (creates ~/.ssh directory and asks you to add your SSH key)~~ (not needed)
 
 ## get it
 `git clone git@github.com:DrPsychick/macdev.git` 
