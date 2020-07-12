@@ -38,5 +38,9 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 ## maintain it
 You want to install a new package? Edit your `host_vars/localhost.yml`, then simply run your alias `localdev` (see `host_vars/localhost-example.yml`) or the above command.
 
+## troubleshooting
+* if you get this (after updating brew): `/usr/local/bin/ansible-playbook: bad interpreter: /usr/local/opt/python/bin/python3.7: no such file or directory`
+  * then run `pip3 install -U ansible` and try again
+
 # setup ENV for mac and ansible:
 see https://gist.github.com/DrPsychick/847ea32c876fda2337e79096a8a23176
