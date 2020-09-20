@@ -6,7 +6,7 @@ osx_image:
 
 install:
   - brew list
-  - brew install python@3.7
+  - brew install python
   - pip3 install ansible
 
 script:
