@@ -25,6 +25,7 @@
 - name: Upgrade homebrew packages
   homebrew:
     upgrade_all: yes
+  when: not brew_skip_upgrade|default(false)
 
 - name: Install brew packages
   homebrew:
@@ -36,6 +37,7 @@
 - name: Upgrade homebrew casks
   homebrew_cask:
     upgrade_all: yes
+  when: not brew_cask_skip_upgrade|default(false)
 
 - name: Install brew cask packages
   homebrew_cask:

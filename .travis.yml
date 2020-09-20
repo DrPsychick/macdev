@@ -22,10 +22,10 @@ script:
   - ansible-playbook macdev.yml --syntax-check
   - cp host_vars/localhost-example.yml host_vars/localhost.yml
   # run the playbook
-  - ansible-playbook macdev.yml
+  - ansible-playbook macdev.yml -e brew_skip_upgrade=true
   # run again -> expect no change
   - >
-    ansible-playbook macdev.yml
+    ansible-playbook macdev.yml -e brew_skip_upgrade=true
     | grep -A2 -e 'changed=0.*failed=0' -e '^changed'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
