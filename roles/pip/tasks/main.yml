@@ -7,8 +7,6 @@
   register: pip_upgrade
   failed_when: pip_upgrade.rc != 0
   changed_when: pip_upgrade.stdout is search("Successfully installed")
-- debug: var=pip_upgrade.stdout_lines
-  when: pip_upgrade is changed
 
 - name: Install packages
   pip:

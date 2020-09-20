@@ -33,12 +33,12 @@
   register: python_update
   failed_when: python_update.rc != 0
   changed_when: 'not python_update.stdout is search("already up-to-date: ansible")'
-- debug: var=python_update
 
 - name: Install/Update brew packages
   homebrew:
-    name: "{{ brew_packages|map(attribute='name')|flatten }}"
+    name: "{{ item }}"
     state: latest
+  with_items: "{{ brew_packages|map(attribute='name')|flatten }}"
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
@@ -48,6 +48,7 @@
 
 - name: Install brew cask packages
   homebrew_cask:
-    name: "{{ brew_cask_packages|map(attribute='name')|flatten }}"
+    name: "{{ item }}"
+  with_items: "{{ brew_cask_packages|map(attribute='name')|flatten }}"
   when: brew_cask_packages[0] is defined
 
