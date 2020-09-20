@@ -26,6 +26,6 @@ script:
   # run again -> expect no change
   - >
     ansible-playbook macdev.yml -e brew_skip_upgrade=true
-    | grep -B1 -e 'changed=0.*failed=0' -e '^changed'
+    | grep -B1 -A30 -e 'changed=0.*failed=0' -e '^changed'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
