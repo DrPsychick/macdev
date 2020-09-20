@@ -32,7 +32,7 @@
   when: '"python" in brew_packages|map(attribute="name")|flatten'
   register: python_update
   failed_when: python_update.rc != 0
-  changed_when: 'not python_update.stdout|contains("already up-to-date: ansible")'
+  changed_when: 'not python_update.stdout is search("already up-to-date: ansible")'
 - debug: var=python_update
 
 - name: Install/Update brew packages
