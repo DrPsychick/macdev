@@ -2,12 +2,15 @@ os: osx
 
 jobs:
   include:
-    - osx_image: xcode10.1
+    - name: "macOS 10.13.6"
+      osx_image: xcode10.1
       # swiftlint requires xcode10.2
       env: BREW_UNINSTALL="postgis gdal swiftlint"
-    - osx_image: xcode11.3
+    - name: "macOS 10.14.6"
+      osx_image: xcode11.3
       env: BREW_UNINSTALL="postgis gdal"
-    - osx_image: xcode12
+    - name: "macOS 10.15.6"
+      osx_image: xcode12
 
 install:
   - brew list
