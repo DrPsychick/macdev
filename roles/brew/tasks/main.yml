@@ -46,7 +46,7 @@
     upgrade_all: yes
   when: not brew_cask_skip_upgrade|default(false)
   register: cask_upgrade
-- debug: var=cask_upgrade.stdout_lines
+- debug: var=cask_upgrade
   when: cask_upgrade is changed
 
 - name: Install brew cask packages

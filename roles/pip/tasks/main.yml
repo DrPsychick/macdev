@@ -6,16 +6,6 @@
     state: latest
     executable: pip3
 
-- name: Upgrade packages
-  shell: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | grep -v '\({{pip_omit_upgrade}}\)' | xargs -n1 pip3 install -U
-  args:
-    executable: /bin/bash
-  register: pip_upgrade
-  failed_when: pip_upgrade.rc != 0
-  changed_when: pip_upgrade.stdout is search("Successfully installed")
-- debug: var=pip_upgrade.stdout_lines
-  when: pip_upgrade is changed
-
 - name: Install packages
   pip:
     name: "{{ pip_packages|map(attribute='name')|flatten }}"
@@ -24,3 +14,14 @@
   register: pip_install
 - debug: var=pip_install
   when: pip_install is changed
+
+- name: Upgrade packages
+  shell: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | grep -v '\({{ pip_omit_upgrade|default("none") }}\)' | xargs -n1 pip3 install -U
+  args:
+    executable: /bin/bash
+  register: pip_upgrade
+  failed_when: pip_upgrade.rc != 0
+  changed_when: pip_upgrade.stdout is search("Successfully installed")
+- debug: var=pip_upgrade.stdout_lines
+  when: pip_upgrade is changed
+
