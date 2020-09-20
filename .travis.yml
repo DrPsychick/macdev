@@ -2,20 +2,19 @@ os: osx
 
 jobs:
   include:
-    - name: "macOS 10.13.6"
+    - name: "XCode 10.1 macOS 10.13.6"
       osx_image: xcode10.1
       # swiftlint requires xcode10.2
       env: BREW_UNINSTALL="postgis gdal swiftlint"
-    - name: "macOS 10.14.6"
+    - name: "XCode 11.3 macOS 10.14.6"
       osx_image: xcode11.3
       env: BREW_UNINSTALL="postgis gdal"
-    - name: "macOS 10.15.6"
+    - name: "XCode 12 macOS 10.15.6"
       osx_image: xcode12
 
 install:
   - brew list
   - brew install python
-  # gdal breaks pip3 update
   - (test -n "$BREW_UNINSTALL" && brew uninstall $BREW_UNINSTALL || exit 0)
   - pip3 install ansible
 
