@@ -29,7 +29,7 @@
 
 - name: Install/Update python + ansible
   shell: pip3 install -U python; pip3 install -U ansible
-  when: "python" in brew_packages|map(attribute="name")|flatten
+  when: '"python" in brew_packages|map(attribute="name")|flatten'
 
 - name: Install/Update brew packages
   homebrew:
