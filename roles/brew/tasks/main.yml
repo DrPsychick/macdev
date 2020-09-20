@@ -18,24 +18,24 @@
   changed_when: false
   when: brew_multiuser|bool == true
 
-- name: Upgrade homebrew
+- name: Update homebrew
   homebrew:
     update_homebrew: yes
+
+- name: Upgrade homebrew packages
+  homebrew:
     upgrade_all: yes
-  register: brew_upgrade
-#  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
 
 - name: Install brew packages
   homebrew:
     name: "{{ item.name }}"
+    state: latest
   with_items: "{{ brew_packages }}"
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
   homebrew_cask:
-    upgrade_all: true
-  register: cask_upgrade
-#  changed_when: cask_upgrade.stdout_lines|length > 1
+    upgrade_all: yes
 
 - name: Install brew cask packages
   homebrew_cask:
