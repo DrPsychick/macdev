@@ -1,5 +1,4 @@
 os: osx
-language: python
 osx_image:
   - xcode10
   - xcode11
