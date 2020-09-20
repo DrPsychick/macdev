@@ -27,7 +27,11 @@
     upgrade_all: yes
   when: not brew_skip_upgrade|default(false)
 
-- name: Install brew packages
+- name: Install/Update python + ansible
+  shell: pip3 install -U python; pip3 install -U ansible
+  when: "python" in brew_packages|map(attribute="name")|flatten
+
+- name: Install/Update brew packages
   homebrew:
     name: "{{ item.name }}"
     state: latest
