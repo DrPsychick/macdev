@@ -37,11 +37,11 @@ brew_packages:
   - { name: kubernetes-cli, path: /usr/local/bin/kubectl }
   - { name: kubectx, path: /usr/local/bin/kubectx }
   - { name: hub, path: /usr/local/bin/hub }
-  - { name: go, path: /usr/local/bin/go }
+  #- { name: go, path: /usr/local/bin/go }
   #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
   - { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
-  - { name: node, path: /usr/local/bin/node }
-  - { name: telegraf, path: /usr/local/bin/telegraf }
+  #- { name: node, path: /usr/local/bin/node }
+  #- { name: telegraf, path: /usr/local/bin/telegraf }
   - { name: mtr, path: /usr/local/sbin/mtr }
   - { name: smartmontools, path: /usr/local/bin/smartctl }
   #- { name: glances, path: /usr/local/bin/glances }

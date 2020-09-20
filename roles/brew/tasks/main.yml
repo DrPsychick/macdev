@@ -30,6 +30,8 @@
 - name: Install/Update python + ansible
   shell: pip3 install -U python; pip3 install -U ansible
   when: '"python" in brew_packages|map(attribute="name")|flatten'
+  register: python_update
+- debug: var=python_update
 
 - name: Install/Update brew packages
   homebrew:
