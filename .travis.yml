@@ -8,7 +8,7 @@ install:
   - brew list
   - brew install python
   # gdal breaks pip3 update
-  - brew uninstall gdal
+  - brew uninstall postgis gdal
   - pip3 install ansible
 
 script:
