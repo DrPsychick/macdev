@@ -5,14 +5,14 @@
 
 - name: Check for SSH private key
   stat: path=$HOME/.ssh/id_rsa
-  register: ssh-private
+  register: ssh_private
 - name: SSH private key permissions
   file: path=$HOME/.ssh/id_rsa owner={{ ansible_user_id }} group={{ user_group }} mode=0600
-  when: ssh-private.stat.exists
+  when: ssh_private.stat.exists
 
 - name: Check for SSH public key
   stat: path=$HOME/.ssh/id_rsa.pub
-  register: ssh-public
+  register: ssh_public
 - name: SSH public key permission
   file: path=$HOME/.ssh/id_rsa.pub owner={{ ansible_user_id }} group={{ user_group }} mode=0644
-  when: ssh-public.stat.exists
+  when: ssh_public.stat.exists

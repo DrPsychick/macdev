@@ -3,8 +3,8 @@
 # - name: Check pip version
 - name: List outdated packages
   shell: pip3 list --outdated --format=freeze
-  register: pip3-outdated
-- debug: var=pip3-outdated.stdout_lines
+  register: pip3_outdated
+- debug: var=pip3_outdated.stdout_lines
 
 - name: Upgrade packages
   shell: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | grep -v '\({{pip3_omit_upgrade}}\)' | xargs -n1 pip3 install -U
