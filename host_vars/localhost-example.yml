@@ -51,9 +51,9 @@ brew_packages:
   - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
 brew_cask_packages:
-  - { name: docker, path: /Applications/Docker.app }
+  #- { name: docker, path: /Applications/Docker.app }
   - { name: iterm2, path: /Applications/iTerm.app }
-  - { name: google-chrome, path: /Applications/Google Chrome.app }
+  #- { name: google-chrome, path: /Applications/Google Chrome.app }
   - { name: atom, path: /Applications/Atom.app }
   #- { name: postman, path: /Applications/Postman.app }
   #- { name: slack, path: /Applications/Slack.app }
@@ -72,7 +72,10 @@ brew_cask_packages:
 
 pip_packages:
   - { name: ansible, path: /usr/local/bin/ansible }
-  - { name: awscli, path: /usr/local/bin/aws } 
+  - { name: awscli, path: /usr/local/bin/aws }
+
+# mercurial is part of distutils
+pip_omit_upgrade: "mercurial"
 
 # supports .zip and .dmg
 app_packages:

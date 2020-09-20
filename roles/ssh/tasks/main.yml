@@ -3,8 +3,16 @@
 - name: SSH directory permissions
   file: path=$HOME/.ssh owner={{ ansible_user_id }} group={{ user_group }} mode=0700
 
+- name: Check for SSH private key
+  stat: path=$HOME/.ssh/id_rsa
+  register: ssh-private
 - name: SSH private key permissions
   file: path=$HOME/.ssh/id_rsa owner={{ ansible_user_id }} group={{ user_group }} mode=0600
+  when: ssh-private.stat.exists
 
+- name: Check for SSH public key
+  stat: path=$HOME/.ssh/id_rsa.pub
+  register: ssh-public
 - name: SSH public key permission
   file: path=$HOME/.ssh/id_rsa.pub owner={{ ansible_user_id }} group={{ user_group }} mode=0644
+  when: ssh-public.stat.exists
