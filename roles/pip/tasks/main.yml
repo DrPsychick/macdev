@@ -1,11 +1,5 @@
 ---
 
-# - name: Check pip version
-- name: List outdated packages
-  shell: pip3 list --outdated --format=freeze
-  register: pip3_outdated
-- debug: var=pip3_outdated.stdout_lines
-
 - name: Upgrade packages
   shell: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | grep -v '\({{pip_omit_upgrade}}\)' | xargs -n1 pip3 install -U
   args:
@@ -13,11 +7,11 @@
   register: pip_upgrade
   failed_when: pip_upgrade.rc == 1
   changed_when: pip_upgrade.stdout_lines|length > 0
+- debug: var=pip_upgrade.stdout_lines
+  when: pip_upgrade|changed
 
 - name: Install packages
-  shell: pip3 install {{ item.name }}
-  args:
-    executable: /bin/bash
-    creates: "{{ item.path }}"
+  pip:
+    name: "{{ item.name }}"
+    executable: pip3
   with_items: "{{ pip_packages }}"
-

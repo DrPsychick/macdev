@@ -27,7 +27,7 @@
 
 - name: Install brew packages
   homebrew:
-    name: {{ item.name }}
+    name: "{{ item.name }}"
   with_items: "{{ brew_packages }}"
   when: brew_packages[0] is defined
 
@@ -39,7 +39,7 @@
 
 - name: Install brew cask packages
   homebrew_cask:
-    name: {{ item.name }}
+    name: "{{ item.name }}"
   with_items: "{{ brew_cask_packages }}"
   when: brew_cask_packages[0] is defined
 

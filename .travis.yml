@@ -27,6 +27,6 @@ script:
   # run again -> expect no change
   - >
     ansible-playbook macdev.yml
-    | grep -e 'changed=0.*failed=0' -e '^changed'
+    | grep -A2 -e 'changed=0.*failed=0' -e '^changed'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
