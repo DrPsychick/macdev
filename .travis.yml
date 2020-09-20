@@ -1,0 +1,18 @@
+os: osx
+language: python
+python: 3.7
+
+install:
+  - pip3 install ansible
+
+script:
+  - ansible-playbook macdev.yml --syntax-check
+  - cp host_vars/localhost-example.yml host_vars/localhost.yml
+  # run the playbook
+  - ansible-playbook macdev.yml
+  # run again -> expect no change
+  - >
+    ansible-playbook macdev.yml
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
