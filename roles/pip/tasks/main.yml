@@ -8,10 +8,11 @@
   failed_when: pip_upgrade.rc == 1
   changed_when: pip_upgrade.stdout_lines|length > 0
 - debug: var=pip_upgrade.stdout_lines
-  when: pip_upgrade|changed
+  when: pip_upgrade is changed
 
 - name: Install packages
   pip:
     name: "{{ item.name }}"
+    state: latest
     executable: pip3
   with_items: "{{ pip_packages }}"
