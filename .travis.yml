@@ -1,5 +1,4 @@
 os: osx
-osx_image: xcode12
 
 jobs:
   include:
@@ -17,7 +16,7 @@ install:
   - brew list
   - brew install python
   # gdal breaks pip3 update
-  - [ -n "$BREW_UNINSTALL" ] && brew uninstall $BREW_UNINSTALL
+  - test -n "$BREW_UNINSTALL" && brew uninstall $BREW_UNINSTALL
   - pip3 install ansible
 
 script:
