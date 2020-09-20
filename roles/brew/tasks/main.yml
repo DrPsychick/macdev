@@ -28,16 +28,17 @@
   when: not brew_skip_upgrade|default(false)
 
 - name: Install/Update python + ansible
-  shell: pip3 install -U python; pip3 install -U ansible
+  shell: brew install python; pip3 install -U ansible
   when: '"python" in brew_packages|map(attribute="name")|flatten'
   register: python_update
+  failed_when: python_update.rc != 0
+  changed_when: 'not python_update.stdout|contains("already up-to-date: ansible")'
 - debug: var=python_update
 
 - name: Install/Update brew packages
   homebrew:
-    name: "{{ item.name }}"
+    name: "{{ brew_packages|map(attribute='name')|flatten }}"
     state: latest
-  with_items: "{{ brew_packages }}"
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
@@ -47,7 +48,6 @@
 
 - name: Install brew cask packages
   homebrew_cask:
-    name: "{{ item.name }}"
-  with_items: "{{ brew_cask_packages }}"
+    name: "{{ brew_cask_packages|map(attribute='name')|flatten }}"
   when: brew_cask_packages[0] is defined
 
