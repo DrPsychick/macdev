@@ -11,7 +11,9 @@ install:
 
 script:
   - ansible-playbook macdev.yml --syntax-check
-  - cp host_vars/localhost-example.yml host_vars/localhost.yml
+  - >
+    cp host_vars/localhost-example.yml host_vars/localhost.yml;
+    sed -i '' -e 's/role_ssh: yes/role_ssh: no/' host_vars/localhost.yml
   # run the playbook
   - ansible-playbook macdev.yml
   # run again -> expect no change
