@@ -16,7 +16,7 @@ install:
   - brew list
   - brew install python
   # gdal breaks pip3 update
-  - test -n "$BREW_UNINSTALL" && brew uninstall $BREW_UNINSTALL || exit 0
+  - (test -n "$BREW_UNINSTALL" && brew uninstall $BREW_UNINSTALL || exit 0)
   - pip3 install ansible
 
 script:
