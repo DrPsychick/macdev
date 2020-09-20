@@ -19,28 +19,27 @@
   when: brew_multiuser|bool == true
 
 - name: Upgrade homebrew
-  shell: brew upgrade
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
   register: brew_upgrade
-  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
+#  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
 
 - name: Install brew packages
-  shell: brew install {{ item.name }}
-  args:
-    executable: /bin/bash
-    creates: "{{ item.path }}"
+  homebrew:
+    name: {{ item.name }}
   with_items: "{{ brew_packages }}"
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
-  shell: brew cask upgrade
+  homebrew_cask:
+    upgrade_all: true
   register: cask_upgrade
-  changed_when: cask_upgrade.stdout_lines|length > 1
+#  changed_when: cask_upgrade.stdout_lines|length > 1
 
 - name: Install brew cask packages
-  shell: brew cask install {{ item.name }}
-  args:
-    executable: /bin/bash
-    creates: "{{ item.path }}"
+  homebrew_cask:
+    name: {{ item.name }}
   with_items: "{{ brew_cask_packages }}"
   when: brew_cask_packages[0] is defined
 
