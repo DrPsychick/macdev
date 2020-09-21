@@ -18,29 +18,42 @@
   changed_when: false
   when: brew_multiuser|bool == true
 
-- name: Upgrade homebrew
-  shell: brew upgrade
-  register: brew_upgrade
-  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
+- name: Update homebrew
+  homebrew:
+    update_homebrew: yes
 
-- name: Install brew packages
-  shell: brew install {{ item.name }}
-  args:
-    executable: /bin/bash
-    creates: "{{ item.path }}"
-  with_items: "{{ brew_packages }}"
+- name: Upgrade homebrew packages
+  homebrew:
+    upgrade_all: yes
+  when: not brew_skip_upgrade|default(false)
+
+- name: Install/Update python + ansible
+  shell: brew install python; pip3 install -U ansible
+  when: '"python" in brew_packages|map(attribute="name")|flatten'
+  register: python_update
+  failed_when: python_update.rc != 0
+  changed_when: 'not python_update.stdout is search("already up-to-date: ansible")'
+
+- name: Install/Update brew packages
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ brew_packages|map(attribute='name')|flatten }}"
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
-  shell: brew cask upgrade
-  register: cask_upgrade
-  changed_when: cask_upgrade.stdout_lines|length > 1
+  homebrew_cask:
+    upgrade_all: yes
+  when: not brew_cask_skip_upgrade|default(false)
+  # TODO: remove this when the module properly reports changes
+  changed_when: false
+#  register: cask_upgrade
+#- debug: var=cask_upgrade
+#  when: cask_upgrade is changed
 
 - name: Install brew cask packages
-  shell: brew cask install {{ item.name }}
-  args:
-    executable: /bin/bash
-    creates: "{{ item.path }}"
-  with_items: "{{ brew_cask_packages }}"
+  homebrew_cask:
+    name: "{{ item }}"
+  with_items: "{{ brew_cask_packages|map(attribute='name')|flatten }}"
   when: brew_cask_packages[0] is defined
 

@@ -14,8 +14,6 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 * download and install individual apps (zip or dmg)
 
 ## ideas/planned features
-* [ ] support multiple environments for pip (virtualenv) 
-  * [ ] support both python2 and python3 (pip vs. pip3)
 * [x] support adding brew casks
 * [ ] (maybe) add a flag through which you can force install to update apps (most apps ask to update themselves though)
 * [ ] maybe add some OSX setting stuff used here: https://github.com/roberth1988/osx-bootstrap
@@ -25,8 +23,6 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 * install homebrew: https://brew.sh
 * install python/pip `brew install python`
 * install ansible: `pip3 install ansible`
-* ~~enable SSH access on your mac (Preferences -> Sharing -> Remote login)~~ (not needed)
-* ~~(optionally) run `setup.sh` and follow the instructions (creates ~/.ssh directory and asks you to add your SSH key)~~ (not needed)
 
 ## get it
 `git clone git@github.com:DrPsychick/macdev.git` 
