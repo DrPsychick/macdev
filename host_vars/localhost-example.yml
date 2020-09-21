@@ -34,9 +34,9 @@ brew_packages:
   - { name: jq, path: /usr/local/bin/jq }
   - { name: gnupg, path: /usr/local/bin/gpg }
   #- { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
-  - { name: kubernetes-cli, path: /usr/local/bin/kubectl }
-  - { name: kubectx, path: /usr/local/bin/kubectx }
-  - { name: hub, path: /usr/local/bin/hub }
+  #- { name: kubernetes-cli, path: /usr/local/bin/kubectl }
+  #- { name: kubectx, path: /usr/local/bin/kubectx }
+  #- { name: hub, path: /usr/local/bin/hub }
   #- { name: go, path: /usr/local/bin/go }
   #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
   - { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
@@ -46,9 +46,9 @@ brew_packages:
   - { name: smartmontools, path: /usr/local/bin/smartctl }
   #- { name: glances, path: /usr/local/bin/glances }
   #- { name: ask-cli, path: /usr/local/bin/ask }
-  - { name: zsh, path: /usr/local/bin/zsh }
-  - { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
-  - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
+  #- { name: zsh, path: /usr/local/bin/zsh }
+  #- { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
+  #- { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
 brew_cask_packages:
   #- { name: docker, path: /Applications/Docker.app }
@@ -72,7 +72,7 @@ brew_cask_packages:
 
 pip_packages:
   - { name: ansible, path: /usr/local/bin/ansible }
-  - { name: awscli, path: /usr/local/bin/aws }
+  #- { name: awscli, path: /usr/local/bin/aws }
 
 # mercurial is part of distutils
 pip_omit_upgrade: "mercurial"
