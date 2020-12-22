@@ -32,12 +32,12 @@
   when: brew_packages[0] is defined
 
 - name: Upgrade homebrew casks
-  shell: brew cask upgrade
+  shell: brew upgrade --cask
   register: cask_upgrade
   changed_when: cask_upgrade.stdout_lines|length > 1
 
 - name: Install brew cask packages
-  shell: brew cask install {{ item.name }}
+  shell: brew install --cask {{ item.name }}
   args:
     executable: /bin/bash
     creates: "{{ item.path }}"
