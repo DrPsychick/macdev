@@ -40,6 +40,8 @@ You want to install a new package? Edit your `host_vars/localhost.yml`, then sim
 ## troubleshooting
 * if you get this (after updating brew): `/usr/local/bin/ansible-playbook: bad interpreter: /usr/local/opt/python/bin/python3.7: no such file or directory`
   * then run `pip3 install -U ansible` and try again
+* brew upgrade fails: 
+  * if brew upgrade sometimes requires user interaction or fails, simply run it manually once: `brew upgrade`
 
 # setup ENV for mac and ansible:
 see https://gist.github.com/DrPsychick/847ea32c876fda2337e79096a8a23176
