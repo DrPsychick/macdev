@@ -75,6 +75,10 @@ brew_cask_packages:
   - { name: discord, path: "/Applications/Discord.app" }
   - { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
   - { name: vlc, path: "/Applications/VLC.app" }
+  #- { name: iina, path: "/Applications/Iina.app" }
+  #- { name: background-music, path: "/Applications/Background Music.app" }
+  - { name: spotify, path: "/Applications/Spotify.app" }
+  #- { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
 
 pip_packages:
   - { name: ansible, path: /usr/local/bin/ansible }
