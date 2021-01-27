@@ -3,6 +3,7 @@
 - name: Check for homebrew
   shell: echo "$HOMEBREW_PREFIX"
   register: homebrew_prefix
+  changed_when: false
 
 - name: Set vars
   set_fact:
