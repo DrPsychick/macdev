@@ -1,22 +1,20 @@
 ---
 
 - name: Check for homebrew
-  stat: path=/usr/local/bin/brew
-  register: homebrew
+  shell: echo "$HOMEBREW_PREFIX"
+  register: homebrew_prefix
+
+- name: Set vars
+  set_fact:
+    brew_installed: true
+    brew_bin: "{{ homebrew_prefix.stdout }}/bin"
+    brew_sbin: "{{ homebrew_prefix.stdout }}/sbin"
+  when: homebrew_prefix.stdout != ""
 
 - name: Homebrew needs manual installation
   debug: msg='Install homebrew manually (https://brew.sh) /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-  when: homebrew.stat.exists == false
-  failed_when: homebrew.stat.exists == false
-
-- name: Setup brew for multiple users
-  shell: (cd /usr/local; chmod +a "group:{{ user_group }} allow list,add_file,search,add_subdirectory,delete_child,chown,readattr,writeattr,readextattr,writeextattr,readsecurity,file_inherit,directory_inherit" Homebrew Caskroom Cellar bin && chgrp -vR {{ user_group }} Homebrew Caskroom Cellar bin && chmod -R g+rwX Homebrew Caskroom Cellar bin)
-  args:
-    executable: /bin/bash
-  register: brew_chmod
-  failed_when: brew_chmod.rc == 1
-  changed_when: false
-  when: brew_multiuser|bool == true
+  when: not brew_installed
+  failed_when: not brew_installed
 
 - name: Upgrade homebrew
   shell: brew upgrade
@@ -26,7 +24,6 @@
 - name: Install brew packages
   shell: brew install {{ item.name }}
   args:
-    executable: /bin/bash
     creates: "{{ item.path }}"
   with_items: "{{ brew_packages }}"
   when: brew_packages[0] is defined
@@ -39,7 +36,6 @@
 - name: Install brew cask packages
   shell: brew install --cask {{ item.name }}
   args:
-    executable: /bin/bash
     creates: "{{ item.path }}"
   with_items: "{{ brew_cask_packages }}"
   when: brew_cask_packages[0] is defined
