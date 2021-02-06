@@ -1,6 +1,28 @@
 ---
 
-# - name: Check pip version
+- name: Check for python3
+  shell: which python3 2>/dev/null
+  register: local_python
+  failed_when: false
+  changed_when: false
+
+- fail:
+    msg: "Python3 is required, install with 'brew install python3'"
+  when: local_python.stdout == ""
+
+- name: Determine python path
+  shell: (cd -P -- $(dirname {{ local_python.stdout }}); printf '%s\n' "$(pwd -P)")
+  register: local_python
+  changed_when: false
+
+- name: Set variables and defaults
+  set_fact:
+    pip_bin: '{{ local_python.stdout }}'
+    pip_sbin: '{{ local_python.stdout|regex_replace("/bin", "/sbin") }}'
+
+- name: Print environment
+  debug:
+    msg: "Python bin path '{{ pip_bin }}' sbin path '{{ pip_sbin }}'"
 
 - name: Upgrade packages
   shell: pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U 
@@ -12,6 +34,6 @@
   shell: pip3 install {{ item.name }}
   args:
     creates: "{{ item.path }}"
-  with_items: "{{ pip_packages }}"
-  when: pip_packages|default([])|length > 0 
+  with_items: "{{ pip_packages|default([]) }}"
+  when: pip_packages|default([])|length > 0
 

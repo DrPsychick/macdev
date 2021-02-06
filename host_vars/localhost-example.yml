@@ -1,10 +1,5 @@
 ---
 
-# defaults
-user_group: admin
-# will set ACL and chgrp for /usr/local/Homebrew|Caskroom|Celler|bin
-brew_multiuser: no
-
 # roles
 role_ssh: yes
 role_pip: yes
@@ -13,40 +8,41 @@ role_app: no
 
 # files and templates:
 # overwrite: replace file on target, if it exists
-# shell: source file in .profile
+# shell (OBSOLETE): source file in .bashrc/.zshrc
+# source=(interactive|login): source file in "interactive" = .bashrc/.zshrc or "login" = .profile/.zprofile
 
 # files you want to copy to the target
 files:
-  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true, shell: false }
+  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
 
 # templates you want to copy to the target
 templates:
-  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true, shell: true }
-  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, shell: true }
+  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
   - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
 
 brew_packages:
-  - { name: python, path: /usr/local/bin/python3 }
-  - { name: pwgen, path: /usr/local/bin/pwgen }
-  - { name: jq, path: /usr/local/bin/jq }
-  - { name: gnupg, path: /usr/local/bin/gpg }
+  - { name: python, path: "{{ brew_bin }}/python3" }
+  - { name: pwgen, path: "{{ brew_bin }}/pwgen" }
+  - { name: jq, path: "{{ brew_bin }}/jq" }
+  - { name: gnupg, path: "{{ brew_bin }}/gpg" }
   #- { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
-  - { name: kubernetes-cli, path: /usr/local/bin/kubectl }
-  - { name: kubectx, path: /usr/local/bin/kubectx }
-  - { name: hub, path: /usr/local/bin/hub }
-  - { name: go, path: /usr/local/bin/go }
+  - { name: kubernetes-cli, path: "{{ brew_bin }}/kubectl" }
+  - { name: kubectx, path: "{{ brew_bin }}/kubectx" }
+  - { name: hub, path: "{{ brew_bin }}/hub" }
+  - { name: go, path: "{{ brew_bin }}/go" }
   #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
-  - { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
-  - { name: node, path: /usr/local/bin/node }
-  - { name: telegraf, path: /usr/local/bin/telegraf }
-  - { name: mtr, path: /usr/local/sbin/mtr }
-  - { name: smartmontools, path: /usr/local/bin/smartctl }
-  #- { name: glances, path: /usr/local/bin/glances }
-  #- { name: ask-cli, path: /usr/local/bin/ask }
-  - { name: zsh, path: /usr/local/bin/zsh }
+  - { name: pinentry-mac, path: "{{ brew_bin }}/pinentry-mac" }
+  - { name: node, path: "{{ brew_bin }}/node" }
+  - { name: telegraf, path: "{{ brew_bin }}/telegraf" }
+  - { name: mtr, path: "{{ brew_sbin }}/mtr" }
+  - { name: smartmontools, path: "{{ brew_bin }}/smartctl" }
+  #- { name: glances, path: "{{ brew_bin }}/glances" }
+  #- { name: ask-cli, path: "{{ brew_bin }}/ask" }
+  - { name: zsh, path: "{{ brew_bin }}/zsh" }
   - { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
   - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
@@ -71,8 +67,8 @@ brew_cask_packages:
   #- { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
 
 pip_packages:
-  - { name: ansible, path: /usr/local/bin/ansible }
-  - { name: awscli, path: /usr/local/bin/aws } 
+  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+  - { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:

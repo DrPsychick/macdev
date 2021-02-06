@@ -4,12 +4,6 @@
 #
 ###
 
-
-# defaults
-user_group: admin
-# will set ACL and chgrp for /usr/local/Homebrew|Caskroom|Celler|bin
-brew_multiuser: no
-
 # roles
 role_ssh: no
 role_pip: yes
@@ -21,37 +15,37 @@ role_app: no
 # shell: source file in .profile
 
 # files you want to copy to the target
-files:
-  #- { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true, shell: false }
+#files:
+  #- { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
 
 # templates you want to copy to the target
-templates:
-  #- { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true, shell: true }
-  #- { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, shell: true }
+#templates:
+  #- { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+  #- { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
   - { name: "updatemac", cmd: "(cd {{playbook_dir}}; ansible-playbook macdev.yml)" }
 
 brew_packages:
-  - { name: python, path: /usr/local/bin/python3 }
-  #- { name: pwgen, path: /usr/local/bin/pwgen }
-  #- { name: jq, path: /usr/local/bin/jq }
-  - { name: gnupg, path: /usr/local/bin/gpg }
+  - { name: python, path: "{{ brew_bin }}/python3" }
+  #- { name: pwgen, path: "{{ brew_bin }}/pwgen" }
+  #- { name: jq, path: "{{ brew_bin }}/jq" }
+  - { name: gnupg, path: "{{ brew_bin }}/gpg" }
   #- { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
-  #- { name: kubernetes-cli, path: /usr/local/bin/kubectl }
-  #- { name: kubectx, path: /usr/local/bin/kubectx }
-  #- { name: hub, path: /usr/local/bin/hub }
-  #- { name: go, path: /usr/local/bin/go }
+  #- { name: kubernetes-cli, path: "{{ brew_bin }}/kubectl" }
+  #- { name: kubectx, path: "{{ brew_bin }}/kubectx" }
+  #- { name: hub, path: "{{ brew_bin }}/hub" }
+  #- { name: go, path: "{{ brew_bin }}/go" }
   #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
-  #- { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
-  #- { name: node, path: /usr/local/bin/node }
-  #- { name: telegraf, path: /usr/local/bin/telegraf }
-  #- { name: mtr, path: /usr/local/sbin/mtr }
-  - { name: smartmontools, path: /usr/local/bin/smartctl }
-  #- { name: glances, path: /usr/local/bin/glances }
-  #- { name: ask-cli, path: /usr/local/bin/ask }
-  #- { name: zsh, path: /usr/local/bin/zsh }
+  #- { name: pinentry-mac, path: "{{ brew_bin }}/pinentry-mac" }
+  #- { name: node, path: "{{ brew_bin }}/node" }
+  #- { name: telegraf, path: "{{ brew_bin }}/telegraf" }
+  #- { name: mtr, path: "{{ brew_sbin }}/mtr" }
+  - { name: smartmontools, path: "{{ brew_bin }}/smartctl" }
+  #- { name: glances, path: "{{ brew_bin }}/glances" }
+  #- { name: ask-cli, path: "{{ brew_bin }}/ask" }
+  #- { name: zsh, path: "{{ brew_bin }}/zsh" }
   #- { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
   #- { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
@@ -59,12 +53,12 @@ brew_cask_packages:
   #- { name: docker, path: "/Applications/Docker.app" }
   - { name: iterm2, path: "/Applications/iTerm.app" }
   - { name: google-chrome, path: "/Applications/Google Chrome.app" }
-  - { name: atom, path: "/Applications/Atom.app" }
-  #- { name: postman, path: "/Applications/Postman.app" }
+#  - { name: atom, path: "/Applications/Atom.app" }
+#  - { name: postman, path: "/Applications/Postman.app" }
   - { name: slack, path: "/Applications/Slack.app" }
   - { name: macpass, path: "/Applications/MacPass.app" }
   - { name: openoffice, path: "/Applications/OpenOffice.app" }
-  - { name: gimp, path: "/Applications/GIMP-2.10.app" }
+#  - { name: gimp, path: "/Applications/GIMP-2.10.app" }
   #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
   #- { name: spectacle, path: "/Applications/Spectacle.app" }
   - { name: drawio, path: "/Applications/draw.io.app" }
@@ -81,8 +75,8 @@ brew_cask_packages:
   #- { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
 
 pip_packages:
-  - { name: ansible, path: /usr/local/bin/ansible }
-  #- { name: awscli, path: /usr/local/bin/aws } 
+  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+  #- { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:
