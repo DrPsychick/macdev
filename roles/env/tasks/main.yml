@@ -1,60 +1,114 @@
 ---
 
-- name: Load system paths from user profile
-  lineinfile:
-    dest: $HOME/.profile
-    regexp: "^[#]?source /etc/profile"
-    line: "source /etc/profile"
-    create: yes
-  #remote_user: "{{ ansible_user_id }}"
+# source=login: load in profile/zprofile (/etc, then $HOME)
+# => should set environment also for script sessions etc.
+# source=interactive: load in .bashrc/.zshrc (/etc, then $HOME)
+# => should set environment for interactive use (terminal, SSH)
 
-- name: Add aliases to .profile
+# determine profile file name
+# see https://superuser.com/questions/187639/zsh-not-hitting-profile#:~:text=profile%20(or%20~%2F.,zshrc%20.
+# .profile = sh/bash
+# .zprofile = zsh
+# Options:
+# use .profile for backwards compatibility and load it in zsh: "zsh_load_sh_profile: true"
+
+- name: Determine shell
+  shell: echo $SHELL
+  register: local_shell
+  changed_when: false
+
+- name: Set shell
+  set_fact:
+    shell: '{{ local_shell.stdout }}'
+    zsh_path: '{{ zsh_path|default("/bin/zsh") }}'
+
+- name: Set variables shell_profile/shell_rc and defaults
+  set_fact:
+    user_group: '{{ user_group|default("admin") }}'
+    shell_aliases: '{{ shell_aliases|default([]) }}'
+    files: '{{ files|default([]) }}'
+    templates: '{{ templates|default([]) }}'
+    zsh_load_sh_profile: '{{ zsh_load_sh_profile|default(false) }}'
+    shell_profile: '{{ ".zprofile" if shell == zsh_path else ".profile" }}'
+    shell_rc: '{{ ".zshrc" if shell == zsh_path else ".bashrc" }}'
+
+- name: Print environment
+  debug:
+    msg: "profile '{{ shell_profile }}', rc file '{{ shell_rc }}'"
+
+- name: Load shell profile in zsh
   lineinfile:
-    dest: $HOME/.profile
+    dest: '{{ "$HOME/" + shell_profile }}'
+    regexp: "^emulate sh.*\\.profile.*"
+    line: "emulate sh -c '. ~/.profile'"
+    create: yes
+  when: zsh_load_sh_profile
+
+- name: "Add aliases to {{ shell_profile }}"
+  lineinfile:
+    dest: '{{ "$HOME/" + shell_profile }}'
     regexp: "^[#]?alias {{ item.name }}=.*"
     line: "alias {{ item.name }}='{{ item.cmd }}'"
+    create: yes
   with_items: "{{ shell_aliases }}"
-  when: shell_aliases[0] is defined # must be a non-empty list
+  when: shell_aliases|length > 0
 
+# files
+# fails if a file exists that should not be overwritten
 - name: Check for existing files without overwrite
   stat: path={{ item.path }}
   with_items: "{{ files }}"
-  when: files[0] is defined and item.overwrite != true
+  when: files|length > 0 and item.overwrite != true
   register: file
   failed_when: file.stat.exists
 
 - name: Copy files
   copy: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode=0755
   with_items: "{{ files }}"
-  when: files[0] is defined
+  when: files|length > 0
 
+- name: "Load files in shell environment ({{shell_profile}})"
+  lineinfile:
+    dest: '{{ "$HOME/" + shell_profile }}'
+    regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
+    line: "source {{ item.path }}"
+  with_items: "{{ files }}"
+  when: files|length > 0 and item.source|default("") == "login"
+
+- name: "Load files in shell environment ({{shell_rc}})"
+  lineinfile:
+    dest: '{{ "$HOME/" + shell_rc }}'
+    regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
+    line: "source {{ item.path }}"
+  with_items: "{{ files }}"
+  when: files|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")
+
+# templates
 # fails if a file exists that should not be overwritten
 - name: Check for existing template files without overwrite
   stat: path={{ item.path }}
   with_items: "{{ templates }}"
-  when: templates[0] is defined and item.overwrite != true 
+  when: templates|length > 0 and item.overwrite != true
   register: template
   failed_when: template.stat.exists
 
 - name: Copy templates
   template: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode=0755
   with_items: "{{ templates }}"
-  when: templates[0] is defined
+  when: templates|length > 0
 
-- name: Load files in shell environment (.profile)
+- name: "Load templates in shell environment ({{shell_profile}})"
   lineinfile:
-    dest: $HOME/.profile
-    regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
-    line: "source {{ item.path }}"
-  with_items: "{{ files }}"
-  when: files[0] is defined and item.shell
-
-- name: Load templates in shell environment (.profile)
-  lineinfile:
-    dest: $HOME/.profile
+    dest: '{{ "$HOME/" + shell_profile }}'
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
   with_items: "{{ templates }}"
-  when: templates[0] is defined and item.shell
+  when: templates|length > 0 and item.source|default("") == "login"
 
-
+- name: "Load templates in shell environment ({{shell_rc}})"
+  lineinfile:
+    dest: '{{ "$HOME/" + shell_rc }}'
+    regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
+    line: "source {{ item.path }}"
+  with_items: "{{ templates }}"
+  when: templates|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")

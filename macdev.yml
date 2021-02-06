@@ -1,8 +1,6 @@
 ---
-- name:
+- name: Simple macOS setup
   hosts: localhost
-  environment:
-    BASH_ENV: "~/.profile" # required to load the local environment (PATH etc.)
   roles:
     - { role: env }
     - { role: ssh, when: role_ssh|bool }
