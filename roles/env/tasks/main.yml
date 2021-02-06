@@ -72,6 +72,7 @@
     dest: '{{ "$HOME/" + shell_profile }}'
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
+    create: yes
   with_items: "{{ files }}"
   when: files|length > 0 and item.source|default("") == "login"
 
@@ -80,6 +81,7 @@
     dest: '{{ "$HOME/" + shell_rc }}'
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
+    create: yes
   with_items: "{{ files }}"
   when: files|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")
 
@@ -102,6 +104,7 @@
     dest: '{{ "$HOME/" + shell_profile }}'
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
+    create: yes
   with_items: "{{ templates }}"
   when: templates|length > 0 and item.source|default("") == "login"
 
@@ -110,5 +113,6 @@
     dest: '{{ "$HOME/" + shell_rc }}'
     regexp: "^[#]?source {{ item.path|replace('$', '\\$') }}"
     line: "source {{ item.path }}"
+    create: yes
   with_items: "{{ templates }}"
   when: templates|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")
