@@ -1,0 +1,17 @@
+function git.merge.master() {
+  cur_branch=$(git branch |grep ^* | cut -d\  -f2)
+  echo "Merging master into $cur_branch"
+  git checkout master
+  git pull --all
+  git checkout $cur_branch
+  git merge master
+}
+
+function git.diff.origin() {
+  git diff @{upstream}
+}
+
+function git.diff.push() {
+  git diff @{push}
+}
+
