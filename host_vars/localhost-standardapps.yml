@@ -31,7 +31,7 @@ brew_packages:
   - { name: python, path: "{{ brew_bin }}/python3" }
   #- { name: pwgen, path: "{{ brew_bin }}/pwgen" }
   #- { name: jq, path: "{{ brew_bin }}/jq" }
-  - { name: gnupg, path: "{{ brew_bin }}/gpg" }
+  #- { name: gnupg, path: "{{ brew_bin }}/gpg" }
   #- { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
   #- { name: kubernetes-cli, path: "{{ brew_bin }}/kubectl" }
   #- { name: kubectx, path: "{{ brew_bin }}/kubectx" }
@@ -65,7 +65,7 @@ brew_cask_packages:
   #- { name: krita, path: "/Applications/krita.app" }
   #- { name: obs, path: "/Applications/OBS.app" }
   #- { name: moonlight, path: "/Applications/Moonlight.app" }
-  - { name: zoomus, path: "/Applications/zoom.us.app" }
+  - { name: zoom, path: "/Applications/zoom.us.app" }
   - { name: discord, path: "/Applications/Discord.app" }
   - { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
   - { name: vlc, path: "/Applications/VLC.app" }
@@ -74,9 +74,9 @@ brew_cask_packages:
   - { name: spotify, path: "/Applications/Spotify.app" }
   #- { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
 
-pip_packages:
-  - { name: ansible, path: "{{ pip_bin }}/ansible" }
-  #- { name: awscli, path: "{{ pip_bin }}/aws" }
+#pip_packages:
+#  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+#  - { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:
