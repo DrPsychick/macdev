@@ -1,9 +1,18 @@
 ---
 - name: Simple macOS setup
   hosts: localhost
+  # set defaults
+  pre_tasks:
+    - set_fact:
+        role_ssh: "{{ role_ssh|default(false) }}"
+        role_ansible: "{{ role_ansible|default(false) }}"
+        role_pip: "{{ role_pip|default(false) }}"
+        role_brew: "{{ role_brew|default(false) }}"
+        role_app: "{{ role_app|default(false) }}"
   roles:
     - { role: env }
     - { role: ssh, when: role_ssh|bool }
+    - { role: ansible, when: role_ansible|bool }
     - { role: pip, when: role_pip|bool }
     - { role: brew, when: role_brew|bool }
     - { role: app, when: role_app|bool }
