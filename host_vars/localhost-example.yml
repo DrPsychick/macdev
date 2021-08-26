@@ -28,7 +28,7 @@ shell_aliases:
 ansible_collections:
   - { name: community.general }
   # see https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#install-multiple-collections-with-a-requirements-file
-  - { name: community.docker, version: "=1.9.0" }
+  #- { name: community.docker, version: "=1.9.0" }
   #- { name: community.kubernetes, source: "" }
 
 brew_packages:
