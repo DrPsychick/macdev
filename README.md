@@ -9,31 +9,38 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 **compare with** https://github.com/geerlingguy/mac-dev-playbook as it may make this repo obsolete.
 
 ## features
-* setup the environment (.profile/.bashrc/aliases/...)
+* setup the environment (.profile/.zshrc/aliases/...)
 * install brew / pip3 packages
 * download and install individual apps (zip or dmg)
 
 ## ideas/planned features
 * [ ] support multiple environments for pip (virtualenv) 
-  * [ ] support both python2 and python3 (pip vs. pip3)
 * [x] support adding brew casks
 * [ ] (maybe) add a flag through which you can force install to update apps (most apps ask to update themselves though)
 * [ ] maybe add some OSX setting stuff used here: https://github.com/roberth1988/osx-bootstrap
 
 # usage
-## prerequisites
-* install homebrew: https://brew.sh
-* install python/pip `brew install python`
-* install ansible: `brew install ansible`
-* ~~enable SSH access on your mac (Preferences -> Sharing -> Remote login)~~ (not needed)
-* ~~(optionally) run `setup.sh` and follow the instructions (creates ~/.ssh directory and asks you to add your SSH key)~~ (not needed)
 
-## get it
-`git clone git@github.com:DrPsychick/macdev.git` 
+## install it
+* open a terminal
+* clone the repository `git clone git@github.com:DrPsychick/macdev.git`
+* run `./install.sh` interactively in the shell (requires entering password and/or installing XCode)
+
+```shell
+cd git # or wherever you keep stuff like this
+git clone git@github.com:DrPsychick/macdev.git
+cd macdev
+./install.sh
+```
 
 ## configure it
 * use `host_vars/localhost-example.yml` as a base and en-/disable roles, add/remove packages to install via pip or homebrew ...
 * save it as `host_vars/localhost.yml` to enable it
+
+```shell
+cp host_vars/localhost-example.yml host_vars/localhost.yml
+open -e host_vars/localhost.yml
+```
 
 ## run it
 `ansible-playbook macdev.yml`
@@ -47,5 +54,6 @@ You want to install a new package? Edit your `host_vars/localhost.yml`, then sim
 * brew upgrade fails: 
   * if brew upgrade sometimes requires user interaction or fails, simply run it manually once: `brew upgrade`
 
-# setup ENV for mac and ansible:
+# references
+### setup ENV for mac and ansible:
 see https://gist.github.com/DrPsychick/847ea32c876fda2337e79096a8a23176
