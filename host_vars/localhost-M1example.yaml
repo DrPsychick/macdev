@@ -1,0 +1,89 @@
+# this is pretty much my own config for my MacBook Air M1
+---
+
+# roles
+role_ssh: yes
+role_ansible: true
+role_pip: yes
+role_brew: yes
+role_app: no
+
+# files and templates:
+# overwrite: replace file on target, if it exists
+# shell: source file in .profile
+
+# files you want to copy to the target
+#files:
+  #- { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
+
+# templates you want to copy to the target
+templates:
+  # some shell functions I use for save time with regular tasks local or remote
+  # see https://levelup.gitconnected.com/the-biggest-time-saver-for-operators-is-dead-simple-9118a1a054b8?source=friends_link&sk=6dc96be1d06fb5ab2d3b1a999caacfa3
+  - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, shell: true }
+  - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true, shell: false }
+  # simply config for finicky, e.g. meet.google.com -> use Chrome
+  - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true, shell: false }
+
+# instead of copying a file or template, you can define aliases one by one
+shell_aliases:
+  - { name: "localbrew", cmd: "(cd ~/work/git/macdev; ansible-playbook macdev.yml)" }
+
+ansible_collections:
+  - { name: community.general }
+  # see https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#install-multiple-collections-with-a-requirements-file
+  - { name: community.docker }
+  #- { name: community.kubernetes, version: "", source: "" }
+  
+ brew_packages:
+  - { name: gnupg, path: "{{brew_bin}}/gpg" }
+  - { name: jq, path: "{{brew_bin}}/jq" }
+  - { name: watch, path: "{{brew_bin}}/watch" }
+  - { name: gnupg, path: "{{brew_bin}}/gpg" }
+  - { name: kubernetes-cli, path: "{{brew_bin}}/kubectl" }
+  - { name: kubectx, path: "{{brew_bin}}/kubectx" }
+  - { name: helm, path: "{{brew_bin}}/helm" }
+  - { name: pinentry-mac, path: "{{brew_bin}}/pinentry-mac" }
+  - { name: node, path: "{{brew_bin}}/node" }
+  - { name: telegraf, path: "{{brew_bin}}/telegraf" }
+  - { name: mtr, path: "{{brew_sbin}}/mtr" }
+  - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
+  - { name: glances, path: "{{brew_bin}}/glances" }
+  - { name: hub, path: "{{brew_bin}}/hub" }
+  
+brew_cask_packages:
+  - { name: docker, path: /Applications/Docker.app }
+  - { name: iterm2, path: /Applications/iTerm.app }
+  - { name: google-chrome, path: /Applications/Google Chrome.app }
+  - { name: atom, path: /Applications/Atom.app }
+  - { name: slack, path: /Applications/Slack.app }
+  - { name: macpass, path: /Applications/MacPass.app }
+  - { name: zoomus, path: /Applications/zoom.us.app }
+  #- { name: openoffice, path: /Applications/OpenOffice.app }
+  #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
+  #- { name: gimp, path: /Applications/Gimp-2.10.app }
+  - { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
+  - { name: spectacle, path: "/Applications/Spectacle.app" }
+  - { name: drawio, path: "/Applications/draw.io.app" }
+  - { name: postman, path: "/Applications/Postman.app" }
+  - { name: moonlight, path: "/Applications/Moonlight.app" }
+  - { name: krita, path: "/Applications/krita.app" }
+  - { name: spotify, path: "/Applications/Spotify.app" }
+  - { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
+  - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }
+  - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
+  #- { name: qsync-client, path: "/Applications/QSync Client.app" }
+  - { name: discord, path: "/Applications/Discord.app" }
+  - { name: google-drive, path: "/Applications/Google Drive.app" }
+  - { name: vlc, path: "/Applications/VLC.app" }
+  #- { name: virtualbox, path: "/Applications/VirtualBox.app" }
+  #- { name: virtualbox-extension-pack, path: "{{ brew_prefix }}/Caskroom/virtualbox-extension-pack/6.1.26/Oracle_VM_VirtualBox_Extension_Pack-6.1.26.vbox-extpack" }
+  - { name: obsidian, path: "/Applications/Obsidian.app" }
+  - { name: mindforger, path: "/Applications/mindforger.app" }
+  #- { name: moom, path: "/Applications/Moom.app" }
+  - { name: obs, path: "/Applications/OBS.app" }
+  - { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
+  #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
+  - { name: finicky, path: "/Applications/finicky.app" }
+  - { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
+ 
