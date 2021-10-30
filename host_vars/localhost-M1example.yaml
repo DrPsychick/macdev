@@ -63,6 +63,8 @@ brew_cask_packages:
   #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
   #- { name: gimp, path: /Applications/Gimp-2.10.app }
   - { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
+  #- { name: pycharm, path: "/Applications/PyCharm.app" }
+  #- { name: goland, path: "/Applications/GoLand.app" }
   - { name: spectacle, path: "/Applications/Spectacle.app" }
   - { name: drawio, path: "/Applications/draw.io.app" }
   - { name: postman, path: "/Applications/Postman.app" }
