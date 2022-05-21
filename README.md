@@ -23,12 +23,12 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 
 ## install it
 * open a terminal
-* clone the repository `git clone git@github.com:DrPsychick/macdev.git`
+* clone the repository `git clone https://github.com/DrPsychick/macdev.git`
 * run `./install.sh` interactively in the shell (requires entering password and/or installing XCode)
 
 ```shell
 cd git # or wherever you keep stuff like this
-git clone git@github.com:DrPsychick/macdev.git
+git clone https://github.com/DrPsychick/macdev.git
 cd macdev
 ./install.sh
 ```
