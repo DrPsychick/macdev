@@ -12,6 +12,7 @@ role_app: no
 system:
 #  # set ComputerName, HostName and NetBIOS Name
 #  hostname: example
+  # sudo systemsetup -help
   systemsetup:
 #    - { key: "-setrestartfreeze", value: "on" }
 #    - { key: "-setdisplaysleep", value: "10" }

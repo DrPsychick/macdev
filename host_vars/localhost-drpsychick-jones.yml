@@ -1,0 +1,162 @@
+---
+
+# roles
+role_ssh: yes
+role_sys: yes
+role_cfg: yes
+role_ansible: true
+role_pip: yes
+role_brew: yes
+role_app: no
+
+config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-drpsychick-jones.yml"
+
+system:
+  hostname: jones
+  # sudo systemsetup -help
+  systemsetup:
+    - { key: "-setrestartfreeze", value: "on" }
+    - { key: "-setdisplaysleep", value: "10" }
+  # domain = /Library/Preferences/com.apple.loginwindow
+  loginwindow:
+    - { key: "AdminHostInfo", value: "HostName" }
+    - { key: "GuestEnabled", value: "0" }
+  generic:
+    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
+    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+
+config:
+  # domain = NSGlobalDomain
+  global:
+    - { key: "InitialKeyRepeat", int: 20 }
+    - { key: "KeyRepeat", int: 1 }
+  generic:
+    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
+    - { domain: "com.apple.Safari", key: "IncludeDevelopMenu", bool: true }
+    - { domain: "com.apple.Safari", key: "WebKitDeveloperExtrasEnabledPreferenceKey", bool: true }
+    - { domain: "com.apple.Safari", key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled", bool: true }
+    - { domain: "com.apple.gamed",  key: "Disabled", bool: true }
+  # domain = com.apple.finder
+  finder:
+    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+  # domain = com.apple.dock
+  dock:
+    - { key: "magnification", bool: true }
+    - { key: "tilesize", int: 32 }
+    - { key: "largesize", int: 128 }
+    - { key: "autohide", bool: true }
+    - { key: "showhidden", bool: true }
+    - { key: "wvous-tl-corner", int: 5 }
+    - { key: "wvous-tl-modifier", int: 0 }
+    - { key: "wvous-tr-corner", int: 11 }
+    - { key: "wvous-tr-modifier", int: 0 }
+    - { key: "wvous-bl-corner", int: 3 }
+    - { key: "wvous-bl-modifier", int: 0 }
+    - { key: "wvous-br-corner", int: 2 }
+    - { key: "wvous-br-modifier", int: 0 }
+    - { key: "expose-animation-duration", float: 0.5 }
+
+## user files and templates:
+# overwrite: replace file on target, if it exists
+# source: "interactive" or "login"
+
+# files you want to copy to the target
+files:
+  #- { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
+
+# templates you want to copy to the target
+templates:
+  - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
+  - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
+  - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true }
+  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
+  - { name: "gitconfig-work", path: "$HOME/.gitconfig-work", overwrite: true }
+  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
+
+# instead of copying a file or template, you can define aliases one by one
+shell_aliases:
+  - { name: "updatemac", cmd: "(cd ~/work/git/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
+  - { name: "rancherVM", cmd: 'LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima" "/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl" shell 0' }
+  - { name: "fixvpn", cmd: "sudo route delete -host 85.190.148.133 192.168.1.200; sudo route add -host 85.190.148.133 192.168.1.200" }
+
+ansible_collections:
+  - { name: community.general }
+  # see https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#install-multiple-collections-with-a-requirements-file
+  - { name: community.docker }
+  - { name: community.kubernetes } # , version: "", source: "" }
+
+brew_packages:
+  - { name: gnupg, path: "{{brew_bin}}/gpg" }
+  - { name: jq, path: "{{brew_bin}}/jq" }
+  - { name: watch, path: "{{brew_bin}}/watch" }
+  - { name: gnupg, path: "{{brew_bin}}/gpg" }
+  #- { name: kubernetes-cli, path: "{{brew_bin}}/kubectl" } # conflicts with Rancher Desktop
+  #- { name: kubectx, path: "{{brew_bin}}/kubectx" }
+  #- { name: helm, path: "{{brew_bin}}/helm" } # conflicts with Rancher Desktop
+  - { name: pinentry-mac, path: "{{brew_bin}}/pinentry-mac" }
+  - { name: node, path: "{{brew_bin}}/node" }
+  - { name: telegraf, path: "{{brew_bin}}/telegraf" }
+  - { name: mtr, path: "{{brew_sbin}}/mtr" }
+  - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
+  - { name: glances, path: "{{brew_bin}}/glances" }
+  - { name: hub, path: "{{brew_bin}}/hub" }
+  - { name: qemu, path: "{{brew_bin}}/qemu-img" }
+  - { name: k3d, path: "{{brew_bin}}/k3d" }
+  - { name: kustomize, path: "{{brew_bin}}/kustomize" }
+  - { name: kubeval, path: "{{brew_bin}}/kubeval" }
+  - { name: kubeseal, path: "{{brew_bin}}/kubeseal" }
+  - { name: pwgen, path: "{{brew_bin}}/pwgen" }
+  - { name: yamllint, path: "{{brew_bin}}/yamllint" }
+
+brew_cask_packages:
+  #- { name: docker, path: /Applications/Docker.app }
+  - { name: iterm2, path: /Applications/iTerm.app }
+  - { name: google-chrome, path: /Applications/Google Chrome.app }
+  - { name: atom, path: /Applications/Atom.app }
+  - { name: slack, path: /Applications/Slack.app }
+  - { name: macpass, path: /Applications/MacPass.app }
+  - { name: zoomus, path: /Applications/zoom.us.app }
+  #- { name: openoffice, path: /Applications/OpenOffice.app }
+  #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
+  #- { name: gimp, path: /Applications/Gimp-2.10.app }
+  #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
+  - { name: pycharm, path: "/Applications/PyCharm.app" }
+  - { name: goland, path: "/Applications/GoLand.app" }
+  - { name: tunnelblick, path: "/Applications/Tunnelblick.app" }
+  - { name: spectacle, path: "/Applications/Spectacle.app" }
+  - { name: drawio, path: "/Applications/draw.io.app" }
+  - { name: postman, path: "/Applications/Postman.app" }
+  - { name: moonlight, path: "/Applications/Moonlight.app" }
+  - { name: krita, path: "/Applications/krita.app" }
+  - { name: spotify, path: "/Applications/Spotify.app" }
+  - { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
+  - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }
+  - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
+  - { name: qsync-client, path: "/Applications/QSync Client.app" }
+  - { name: discord, path: "/Applications/Discord.app" }
+  - { name: google-drive, path: "/Applications/Google Drive.app" }
+  - { name: vlc, path: "/Applications/VLC.app" }
+  #- { name: virtualbox, path: "/Applications/VirtualBox.app" }
+  #- { name: virtualbox-extension-pack, path: "{{ brew_prefix }}/Caskroom/virtualbox-extension-pack/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack" }
+  - { name: obsidian, path: "/Applications/Obsidian.app" }
+  - { name: mindforger, path: "/Applications/mindforger.app" }
+  - { name: moom, path: "/Applications/Moom.app" }
+  - { name: obs, path: "/Applications/OBS.app" }
+  - { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
+  #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
+  - { name: finicky, path: "/Applications/finicky.app" }
+  - { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
+  - { name: utm, path: "/Applications/UTM.app" }
+  - { name: minecraft, path: "/Applications/Minecraft.app" }
+  - { name: curseforge, path: "/Applications/CurseForge.app" }
+  - { name: rancher, path: "/Applications/Rancher Desktop.app" }
+  - { name: 1password, path: "/Applications/1Password 7.app" }
+
+pip_packages:
+  - { name: yamale, path: "{{pip_bin}}/yamale" }
+#  - { name: kubernetes, path: "/lib/python3.9/site-packages/kubernetes" }
+#  - { name: ansible, path: /usr/local/bin/ansible }
+#  - { name: awscli, path: /usr/local/bin/aws } 
+
+# supports .zip and .dmg
+app_packages:

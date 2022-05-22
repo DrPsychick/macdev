@@ -1,4 +1,16 @@
 ---
+- name: Download config
+  hosts: localhost
+  tasks:
+    - name: Download config
+      get_url:
+        url: "{{ config_url }}"
+        dest: "{{ playbook_dir }}/host_vars/localhost.yml"
+      register: config_download
+      when: config_url is defined
+    - fail:
+      when: config_download is changed
+
 - name: Sudo check
   hosts: localhost
   # set defaults

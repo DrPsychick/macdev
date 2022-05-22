@@ -14,11 +14,12 @@ role_app: no
 system:
 #  # set ComputerName, HostName and NetBIOS Name
 #  hostname: example
+  # sudo systemsetup -help
   systemsetup:
 #    - { key: "-setrestartfreeze", value: "on" }
 #    - { key: "-setdisplaysleep", value: "10" }
   loginwindow:
-#    - { key: "AdminHostInfo", value: "HostName" }
+#    - { key: "AdminHostInfo", value: "HostName" } # shows host name and info on login screen
 #    - { key: "GuestEnabled", value: "0" }
   generic:
 #    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
@@ -43,6 +44,7 @@ config:
 #    - { key: "tilesize", int: 32 }
 #    - { key: "largesize", int: 128 }
 #    - { key: "autohide", int: 1 }
+    # hot corners: tl = top-left, br = bottom-right
 #    - { key: "wvous-tl-corner", int: 5 }
 #    - { key: "wvous-tl-modifier", int: 0 }
 #    - { key: "wvous-tr-corner", int: 11 }
