@@ -2,28 +2,74 @@
 
 # roles
 role_ssh: yes
+# role_sys requires sudo
+role_sys: no
+role_cfg: no
 role_ansible: yes
-role_pip: yes
+role_pip: no
 role_brew: yes
 role_app: no
 
-# files and templates:
+## system configuration (requires sudo)
+system:
+#  # set ComputerName, HostName and NetBIOS Name
+#  hostname: example
+  # sudo systemsetup -help
+  systemsetup:
+#    - { key: "-setrestartfreeze", value: "on" }
+#    - { key: "-setdisplaysleep", value: "10" }
+  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" } # shows host name and info on login screen
+#    - { key: "GuestEnabled", value: "0" }
+  generic:
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+
+## user configuration (must be run per user)
+config:
+  # domain = NSGlobalDomain
+  global:
+#    - { key: "InitialKeyRepeat", int: 15 }
+#    - { key: "KeyRepeat", int: 1 }
+  generic:
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
+  # domain = com.apple.finder
+  finder:
+    # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
+    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+  # domain = com.apple.dock
+  dock:
+    # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
+#    - { key: "magnification", int: 1 }
+#    - { key: "tilesize", int: 32 }
+#    - { key: "largesize", int: 128 }
+#    - { key: "autohide", int: 1 }
+    # hot corners: tl = top-left, br = bottom-right
+#    - { key: "wvous-tl-corner", int: 5 }
+#    - { key: "wvous-tl-modifier", int: 0 }
+#    - { key: "wvous-tr-corner", int: 11 }
+#    - { key: "wvous-tr-modifier", int: 0 }
+#    - { key: "wvous-bl-corner", int: 3 }
+#    - { key: "wvous-bl-modifier", int: 0 }
+#    - { key: "wvous-br-corner", int: 2 }
+#    - { key: "wvous-br-modifier", int: 0 }
+
+## user files and templates:
 # overwrite: replace file on target, if it exists
-# shell (OBSOLETE): source file in .bashrc/.zshrc
-# source=(interactive|login): source file in "interactive" = .bashrc/.zshrc or "login" = .profile/.zprofile
+# source=(interactive|login): source file for "interactive" session = .bashrc/.zshrc or "login" session = .profile/.zprofile
 
 # files you want to copy to the target
 files:
-  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
+#  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
 
 # templates you want to copy to the target
 templates:
-  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
-  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
+#  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+#  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
-  - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
+  - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
 
 ansible_collections:
   - { name: community.general }
@@ -31,6 +77,7 @@ ansible_collections:
   #- { name: community.docker, version: "=1.9.0" }
   #- { name: community.kubernetes, source: "" }
 
+# TODO: at this time, only ONE user can control brew packages
 brew_packages:
   - { name: python, path: "{{ brew_bin }}/python3" }
   - { name: pwgen, path: "{{ brew_bin }}/pwgen" }
@@ -54,10 +101,10 @@ brew_packages:
   - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
 brew_cask_packages:
-  - { name: docker, path: /Applications/Docker.app }
   - { name: iterm2, path: /Applications/iTerm.app }
   - { name: google-chrome, path: /Applications/Google Chrome.app }
-  - { name: atom, path: /Applications/Atom.app }
+  #- { name: docker, path: /Applications/Docker.app }
+  #- { name: atom, path: /Applications/Atom.app }
   #- { name: postman, path: /Applications/Postman.app }
   #- { name: slack, path: /Applications/Slack.app }
   #- { name: macpass, path: /Applications/MacPass.app }
@@ -71,11 +118,11 @@ brew_cask_packages:
   #- { name: moonlight, path: "/Applications/Moonlight.app" }
   #- { name: zoom, path: "/Applications/zoom.us.app" }
   #- { name: discord, path: "/Applications/Discord.app" }
-  #- { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
+  #- { name: google-drive, path: "/Applications/Google Drive.app" }
 
-pip_packages:
-  - { name: ansible, path: "{{ pip_bin }}/ansible" }
-  - { name: awscli, path: "{{ pip_bin }}/aws" }
+#pip_packages:
+#  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+#  - { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:

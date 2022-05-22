@@ -1,13 +1,17 @@
 ---
 
 - name: Check for homebrew
-  shell: which brew
-  register: homebrew_cmd
+  shell: >
+    [ -n "$HOMEBREW_PREFIX" ] && echo "$HOMEBREW_PREFIX" || echo "/usr/local"
+  register: homebrew_prefix
   changed_when: false
 
 - name: Set vars
   set_fact:
     brew_installed: true
+    brew_prefix: "{{ homebrew_prefix.stdout }}"
+    brew_bin: "{{ homebrew_prefix.stdout }}/bin"
+    brew_sbin: "{{ homebrew_prefix.stdout }}/sbin"
   when: homebrew_prefix.stdout != ""
 
 - name: Homebrew needs manual installation

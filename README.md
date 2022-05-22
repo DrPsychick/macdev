@@ -6,18 +6,15 @@ I hate it when I need to setup a computer from scratch, but from time to time I 
 
 It is **not** meant to be used for linux or windows environments and **not** meant to support setting up a remote host. It's just a tiny helper to automate installing all the tools and software you expect on your local machine.
 
-**compare with** https://github.com/geerlingguy/mac-dev-playbook as it may make this repo obsolete.
+**Much simpler than** https://github.com/geerlingguy/mac-dev-playbook, but obviously not as sophisticated.
 
 ## features
+* system configuration (`sudo defaults write XXX`) - hostname, 
+* user configuration (`defaults write XXX`) - dock behaviour, hot corners, finder defaults, ...
 * setup the environment (.profile/.zshrc/aliases/...)
 * install brew / pip3 packages
 * download and install individual apps (zip or dmg)
-
-## ideas/planned features
-* [ ] support multiple environments for pip (virtualenv) 
-* [x] support adding brew casks
-* [ ] (maybe) add a flag through which you can force install to update apps (most apps ask to update themselves though)
-* [ ] maybe add some OSX setting stuff used here: https://github.com/roberth1988/osx-bootstrap
+* optionally use a URL to download the `localhost.yml` configuration
 
 # usage
 
@@ -40,13 +37,14 @@ cd macdev
 ```shell
 cp host_vars/localhost-example.yml host_vars/localhost.yml
 open -e host_vars/localhost.yml
+# replace "YOUR_MACDEV_DIRECTORY" with the directory where the cloned repository resides
 ```
 
 ## run it
 `ansible-playbook macdev.yml`
 
 ## maintain it
-You want to install a new package? Edit your `host_vars/localhost.yml`, then simply run your alias `localdev` (see `host_vars/localhost-example.yml`) or the above command.
+You want to install a new package? Edit your `host_vars/localhost.yml`, then simply run your alias `updatemac` (see `host_vars/localhost-example.yml`) or the above command.
 
 ## troubleshooting
 * if you get this (after updating brew): `/usr/local/bin/ansible-playbook: bad interpreter: /usr/local/opt/python/bin/python3.7: no such file or directory`
