@@ -50,3 +50,6 @@ You want to install a new package? Edit your `host_vars/localhost.yml`, then sim
 
 # setup ENV for mac and ansible:
 see https://gist.github.com/DrPsychick/847ea32c876fda2337e79096a8a23176
+
+# inspired by
+* https://github.com/roberth1988/osx-bootstrap
