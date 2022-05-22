@@ -2,32 +2,46 @@
 
 # roles
 role_ssh: yes
-role_net: no
+# role_sys requires sudo
+role_sys: no
 role_cfg: no
 role_ansible: yes
-role_pip: yes
+role_pip: no
 role_brew: yes
 role_app: no
 
-# general configuration
-network:
-  hostname: example
+## system configuration (requires sudo)
+system:
+#  # set ComputerName, HostName and NetBIOS Name
+#  hostname: example
+#  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" }
+#    - { key: "GuestEnabled", value: "0" }
 
+## user configuration (must be run per user)
 config:
   keyboard:
-    - { key: "InitialKeyRepeat", int: 20 }
-    - { key: "KeyRepeat", int: 1 }
+#    - { key: "InitialKeyRepeat", int: 15 }
+#    - { key: "KeyRepeat", int: 1 }
   finder:
     # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
-    defaultView: "Nlsv"
+#    defaultView: "Nlsv"
   dock:
-    - { key: "magnification", int: 1 }
-    - { key: "tilesize", int: 32 }
-    - { key: "largesize", int: 128 }
-    - { key: "autohide", int: 1 }
+    # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
+#    - { key: "magnification", int: 1 }
+#    - { key: "tilesize", int: 32 }
+#    - { key: "largesize", int: 128 }
+#    - { key: "autohide", int: 1 }
+#    - { key: "wvous-tl-corner", int: 5 }
+#    - { key: "wvous-tl-modifier", int: 0 }
+#    - { key: "wvous-tr-corner", int: 11 }
+#    - { key: "wvous-tr-modifier", int: 0 }
+#    - { key: "wvous-bl-corner", int: 3 }
+#    - { key: "wvous-bl-modifier", int: 0 }
+#    - { key: "wvous-br-corner", int: 2 }
+#    - { key: "wvous-br-modifier", int: 0 }
 
-
-# files and templates:
+## user files and templates:
 # overwrite: replace file on target, if it exists
 # shell (OBSOLETE): source file in .bashrc/.zshrc
 # source=(interactive|login): source file in "interactive" = .bashrc/.zshrc or "login" = .profile/.zprofile
@@ -51,6 +65,7 @@ ansible_collections:
   #- { name: community.docker, version: "=1.9.0" }
   #- { name: community.kubernetes, source: "" }
 
+# TODO: at this time, only ONE user can control brew packages
 brew_packages:
   - { name: python, path: "{{ brew_bin }}/python3" }
   - { name: pwgen, path: "{{ brew_bin }}/pwgen" }
@@ -74,10 +89,10 @@ brew_packages:
   - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
 brew_cask_packages:
-  - { name: docker, path: /Applications/Docker.app }
   - { name: iterm2, path: /Applications/iTerm.app }
   - { name: google-chrome, path: /Applications/Google Chrome.app }
-  - { name: atom, path: /Applications/Atom.app }
+  #- { name: docker, path: /Applications/Docker.app }
+  #- { name: atom, path: /Applications/Atom.app }
   #- { name: postman, path: /Applications/Postman.app }
   #- { name: slack, path: /Applications/Slack.app }
   #- { name: macpass, path: /Applications/MacPass.app }
@@ -91,11 +106,11 @@ brew_cask_packages:
   #- { name: moonlight, path: "/Applications/Moonlight.app" }
   #- { name: zoom, path: "/Applications/zoom.us.app" }
   #- { name: discord, path: "/Applications/Discord.app" }
-  #- { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
+  #- { name: google-drive, path: "/Applications/Google Drive.app" }
 
-pip_packages:
-  - { name: ansible, path: "{{ pip_bin }}/ansible" }
-  - { name: awscli, path: "{{ pip_bin }}/aws" }
+#pip_packages:
+#  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+#  - { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:

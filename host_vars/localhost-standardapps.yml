@@ -67,7 +67,7 @@ brew_cask_packages:
   #- { name: moonlight, path: "/Applications/Moonlight.app" }
   - { name: zoom, path: "/Applications/zoom.us.app" }
   - { name: discord, path: "/Applications/Discord.app" }
-  - { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
+  - { name: google-drive, path: "/Applications/Google Drive.app" }
   - { name: vlc, path: "/Applications/VLC.app" }
   #- { name: iina, path: "/Applications/Iina.app" }
   #- { name: background-music, path: "/Applications/Background Music.app" }

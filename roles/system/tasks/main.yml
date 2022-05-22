@@ -1,0 +1,17 @@
+---
+- name: Set hostname
+  shell: |
+    scutil --set ComputerName {{ system.hostname }};
+    scutil --set HostName {{ system.hostname }}
+    scutil --set LocalHostName {{ system.hostname }}
+    defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ system.hostname|lower }}
+  become: yes
+  become_user: "root"
+  when: system.hostname is defined
+
+- name: Configure Login Window
+  shell: defaults write /Library/Preferences/com.apple.loginwindow {{ item.key }} {{ item.value }}
+  with_items: "{{ system.loginwindow }}"
+  become: yes
+  become_user: "root"
+  when: system.loginwindow is defined

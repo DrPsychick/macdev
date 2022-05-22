@@ -1,20 +1,34 @@
 ---
-- name: Simple macOS setup
+- name: Sudo check
   hosts: localhost
   # set defaults
   pre_tasks:
     - set_fact:
         role_ssh: "{{ role_ssh|default(false) }}"
-        role_net: "{{ role_net|default(false) }}"
+        role_sys: "{{ role_sys|default(false) }}"
         role_cfg: "{{ role_cfg|default(false) }}"
         role_ansible: "{{ role_ansible|default(false) }}"
         role_pip: "{{ role_pip|default(false) }}"
         role_brew: "{{ role_brew|default(false) }}"
         role_app: "{{ role_app|default(false) }}"
+  tasks:
+    - name: Check if sudo works
+      shell: sudo echo "sudo works"
+      become: yes
+      become_user: root
+      register: sudo_check
+      ignore_errors: true
+      when: role_sys
+    - debug: msg="Run 'sudo echo' to fix this."
+      failed_when: true
+      when: role_sys and sudo_check is failed
+
+- name: Simple macOS setup
+  hosts: localhost
   roles:
     - { role: env }
     - { role: ssh, when: role_ssh|bool }
-    - { role: network, when: role_net|bool }
+    - { role: system, when: role_sys|bool }
     - { role: config, when: role_cfg|bool }
     - { role: ansible, when: role_ansible|bool }
     - { role: pip, when: role_pip|bool }
