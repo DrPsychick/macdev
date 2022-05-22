@@ -83,7 +83,7 @@
     line: "source {{ item.path }}"
     create: yes
   with_items: "{{ files }}"
-  when: files|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")
+  when: files|length > 0 and item.source|default("") == "interactive"
 
 # templates
 # fails if a file exists that should not be overwritten
@@ -115,4 +115,4 @@
     line: "source {{ item.path }}"
     create: yes
   with_items: "{{ templates }}"
-  when: templates|length > 0 and (item.shell|default(false) or item.source|default("") == "interactive")
+  when: templates|length > 0 and item.source|default("") == "interactive"

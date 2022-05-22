@@ -54,21 +54,20 @@ config:
 
 ## user files and templates:
 # overwrite: replace file on target, if it exists
-# shell (OBSOLETE): source file in .bashrc/.zshrc
-# source=(interactive|login): source file in "interactive" = .bashrc/.zshrc or "login" = .profile/.zprofile
+# source=(interactive|login): source file for "interactive" session = .bashrc/.zshrc or "login" session = .profile/.zprofile
 
 # files you want to copy to the target
 files:
-  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
+#  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
 
 # templates you want to copy to the target
 templates:
-  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
-  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
+#  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+#  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
-  - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
+  - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
 
 ansible_collections:
   - { name: community.general }
