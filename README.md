@@ -30,9 +30,14 @@ It is **not** meant to be used for linux or windows environments and **not** mea
 ## configure it
 * use `host_vars/localhost-example.yml` as a base and en-/disable roles, add/remove packages to install via pip or homebrew ...
 * save it as `host_vars/localhost.yml` to enable it
+* OR (see below): provide a URL to download your config from: `-e config_url=http://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-example.yml`
 
 ## run it
-`ansible-playbook macdev.yml`
+```shell
+ansible-playbook macdev.yml
+# OR with config URL (must re-run after download)
+ansible-playbook macdev.yml -e config_url=http://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-example.yml
+```
 
 ## maintain it
 You want to install a new package? Edit your `host_vars/localhost.yml`, then simply run your alias `localdev` (see `host_vars/localhost-example.yml`) or the above command.
