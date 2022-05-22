@@ -14,18 +14,29 @@ role_app: no
 system:
 #  # set ComputerName, HostName and NetBIOS Name
 #  hostname: example
-#  loginwindow:
+  systemsetup:
+#    - { key: "-setrestartfreeze", value: "on" }
+#    - { key: "-setdisplaysleep", value: "10" }
+  loginwindow:
 #    - { key: "AdminHostInfo", value: "HostName" }
 #    - { key: "GuestEnabled", value: "0" }
+  generic:
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
 
 ## user configuration (must be run per user)
 config:
-  keyboard:
+  # domain = NSGlobalDomain
+  global:
 #    - { key: "InitialKeyRepeat", int: 15 }
 #    - { key: "KeyRepeat", int: 1 }
+  generic:
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
+  # domain = com.apple.finder
   finder:
     # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
-#    defaultView: "Nlsv"
+    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+  # domain = com.apple.dock
   dock:
     # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
 #    - { key: "magnification", int: 1 }

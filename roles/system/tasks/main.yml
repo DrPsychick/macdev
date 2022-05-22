@@ -1,6 +1,7 @@
 ---
 - name: Set hostname
   shell: |
+    systemsetup -setcomputername {{ system.hostname }};
     scutil --set ComputerName {{ system.hostname }};
     scutil --set HostName {{ system.hostname }}
     scutil --set LocalHostName {{ system.hostname }}
@@ -9,9 +10,31 @@
   become_user: "root"
   when: system.hostname is defined
 
+- name: System Setup
+  shell: |
+    systemsetup {{ item.key }} {{ item.value }}
+  with_items: "{{ system.systemsetup }}"
+  become: yes
+  become_user: "root"
+  when: system.systemsetup is defined
+
+- name: Generic configuration
+  shell: |
+    defaults write {{ item.domain }} {{ item.key }} \
+    {{ "-int "+item.int|string if item.int is defined }} \
+    {{ "-float "+item.float|string if item.float is defined }} \
+    {{ "-bool "+item.bool|string if item.bool is defined }} \
+    {{ "-string "+item.string if item.string is defined }}
+  with_items: "{{ system.generic }}"
+  become: yes
+  become_user: "root"
+  register: generic_config
+  when: system.generic is defined and item.domain is defined
+
 - name: Configure Login Window
   shell: defaults write /Library/Preferences/com.apple.loginwindow {{ item.key }} {{ item.value }}
   with_items: "{{ system.loginwindow }}"
   become: yes
   become_user: "root"
   when: system.loginwindow is defined
+

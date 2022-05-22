@@ -8,7 +8,49 @@ role_pip: yes
 role_brew: yes
 role_app: no
 
-# files and templates:
+## system configuration (requires sudo)
+system:
+#  # set ComputerName, HostName and NetBIOS Name
+#  hostname: example
+  systemsetup:
+#    - { key: "-setrestartfreeze", value: "on" }
+#    - { key: "-setdisplaysleep", value: "10" }
+  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" }
+#    - { key: "GuestEnabled", value: "0" }
+  generic:
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+
+## user configuration (must be run per user)
+config:
+  # domain = NSGlobalDomain
+  global:
+#    - { key: "InitialKeyRepeat", int: 15 }
+#    - { key: "KeyRepeat", int: 1 }
+  generic:
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
+  # domain = com.apple.finder
+  finder:
+    # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
+#    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+  # domain = com.apple.dock
+  dock:
+    # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
+#    - { key: "magnification", int: 1 }
+#    - { key: "tilesize", int: 32 }
+#    - { key: "largesize", int: 128 }
+#    - { key: "autohide", int: 1 }
+#    - { key: "wvous-tl-corner", int: 5 }
+#    - { key: "wvous-tl-modifier", int: 0 }
+#    - { key: "wvous-tr-corner", int: 11 }
+#    - { key: "wvous-tr-modifier", int: 0 }
+#    - { key: "wvous-bl-corner", int: 3 }
+#    - { key: "wvous-bl-modifier", int: 0 }
+#    - { key: "wvous-br-corner", int: 2 }
+#    - { key: "wvous-br-modifier", int: 0 }
+
+## user files and templates:
 # overwrite: replace file on target, if it exists
 # shell: source file in .profile
 
