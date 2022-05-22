@@ -1,0 +1,56 @@
+---
+- name: Check vars
+  debug: msg="`config` is defined"
+  failed_when: config is not defined
+
+- name: Global configuration
+  shell: |
+    defaults write NSGlobalDomain {{ item.key }} \
+    {{ "-int "+item.int|string if item.int is defined }} \
+    {{ "-float "+item.float|string if item.float is defined }} \
+    {{ "-bool "+item.bool|string if item.bool is defined }} \
+    {{ "-string "+item.string if item.string is defined }}
+  with_items: "{{ config.global }}"
+  register: global_config
+  when: config.global is defined
+
+- name: Generic configuration
+  shell: |
+    defaults write {{ item.domain }} {{ item.key }} \
+    {{ "-int "+item.int|string if item.int is defined }} \
+    {{ "-float "+item.float|string if item.float is defined }} \
+    {{ "-bool "+item.bool|string if item.bool is defined }} \
+    {{ "-string "+item.string if item.string is defined }}
+  with_items: "{{ config.generic }}"
+  register: generic_config
+  when: config.generic is defined and item.domain is defined
+
+- name: Configure Finder
+  shell: |
+    defaults write com.apple.finder {{ item.key }} \
+    {{ "-int "+item.int|string if item.int is defined }} \
+    {{ "-float "+item.float|string if item.float is defined }} \
+    {{ "-bool "+item.bool|string if item.bool is defined }} \
+    {{ "-string "+item.string if item.string is defined }}
+  with_items: "{{ config.finder }}"
+  register: finder_config
+  when: config.finder is defined
+
+- name: Restart Finder
+  shell: killall Finder
+  when: finder_config is changed
+
+- name: Configure Dock
+  shell: |
+    defaults write com.apple.dock {{ item.key }} \
+    {{ "-int "+item.int|string if item.int is defined }} \
+    {{ "-float "+item.float|string if item.float is defined }} \
+    {{ "-bool "+item.bool|string if item.bool is defined }} \
+    {{ "-string "+item.string if item.string is defined }}
+  with_items: "{{ config.dock }}"
+  register: dock_config
+  when: config.dock is defined
+
+- name: Restart Dock
+  shell: killall Dock
+  when: dock_config is changed
