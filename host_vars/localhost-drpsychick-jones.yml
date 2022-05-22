@@ -115,7 +115,7 @@ brew_cask_packages:
   - { name: atom, path: /Applications/Atom.app }
   - { name: slack, path: /Applications/Slack.app }
   - { name: macpass, path: /Applications/MacPass.app }
-  - { name: zoomus, path: /Applications/zoom.us.app }
+  - { name: zoom, path: /Applications/zoom.us.app }
   #- { name: openoffice, path: /Applications/OpenOffice.app }
   #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
   #- { name: gimp, path: /Applications/Gimp-2.10.app }
@@ -140,7 +140,7 @@ brew_cask_packages:
   #- { name: virtualbox-extension-pack, path: "{{ brew_prefix }}/Caskroom/virtualbox-extension-pack/6.1.28/Oracle_VM_VirtualBox_Extension_Pack-6.1.28.vbox-extpack" }
   - { name: obsidian, path: "/Applications/Obsidian.app" }
   - { name: mindforger, path: "/Applications/mindforger.app" }
-  - { name: moom, path: "/Applications/Moom.app" }
+  #- { name: moom, path: "/Applications/Moom.app" }
   - { name: obs, path: "/Applications/OBS.app" }
   - { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
   #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
@@ -155,8 +155,8 @@ brew_cask_packages:
 pip_packages:
   - { name: yamale, path: "{{pip_bin}}/yamale" }
 #  - { name: kubernetes, path: "/lib/python3.9/site-packages/kubernetes" }
-#  - { name: ansible, path: /usr/local/bin/ansible }
-#  - { name: awscli, path: /usr/local/bin/aws } 
+#  - { name: ansible, path: "{{pip_bin}}/ansible" }
+#  - { name: awscli, path: "{{pip_bin}}/aws" }
 
 # supports .zip and .dmg
 app_packages:
