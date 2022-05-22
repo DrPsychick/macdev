@@ -1,0 +1,31 @@
+---
+- name: Check vars
+  debug: msg="`config` is not defined"
+  failed_when: config is not defined
+
+- name: Set Keyboard
+  shell: defaults write -g {{ item.key }} -int {{ item.int }}
+  become: yes
+  become_user: "root"
+  with_items: "{{ config.keyboard }}"
+  when: config.keyboard is defined and item.int is defined
+
+- name: Set default Finder view
+  shell: defaults write com.apple.finder FXPreferredViewStyle -string {{ config.finder.defaultView }}
+  become: yes
+  become_user: "root"
+  when: config.finder is defined and config.finder.defaultView is defined
+
+- name: Configure Dock
+  shell: defaults write com.apple.dock {{ item.key }} -int {{ item.int }}
+#  become: yes
+#  become_user: "root"
+  with_items: "{{ config.dock }}"
+  register: dock_config
+  when: config.dock is defined and item.int is defined
+
+- name: Restart Dock
+  shell: killall Dock
+  become: yes
+  become_user: root
+  when: dock_config is changed

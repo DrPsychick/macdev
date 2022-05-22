@@ -2,10 +2,30 @@
 
 # roles
 role_ssh: yes
+role_net: no
+role_cfg: no
 role_ansible: yes
 role_pip: yes
 role_brew: yes
 role_app: no
+
+# general configuration
+network:
+  hostname: example
+
+config:
+  keyboard:
+    - { key: "InitialKeyRepeat", int: 20 }
+    - { key: "KeyRepeat", int: 1 }
+  finder:
+    # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
+    defaultView: "Nlsv"
+  dock:
+    - { key: "magnification", int: 1 }
+    - { key: "tilesize", int: 32 }
+    - { key: "largesize", int: 128 }
+    - { key: "autohide", int: 1 }
+
 
 # files and templates:
 # overwrite: replace file on target, if it exists
