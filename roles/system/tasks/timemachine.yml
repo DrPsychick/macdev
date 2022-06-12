@@ -1,0 +1,33 @@
+---
+
+- name: Check TimeMachine destination
+  shell: >
+    tmutil destinationinfo | grep URL | awk '{print $3}'
+  become: yes
+  become_user: "root"
+  register: timemachine_destination
+  when: system.timemachine.destination is defined
+
+- name: Configure TimeMachine destination
+  shell: >
+    tmutil setdestination {{ system.timemachine.destination|quote }}
+  become: yes
+  become_user: "root"
+  when: system.timemachine.destination is defined and timemachine_destination.stdout != system.timemachine.destination
+
+# tmutil: isexcluded requires Full Disk Access privileges.
+# -> run ansible in your normal terminal
+- name: Add exclusions
+  shell: >
+    tmutil isexcluded {{ item|quote }} || exit 1;
+    included=$(tmutil isexcluded {{ item|quote }} | grep 'Included');
+    if [ -n "$included" ]; then
+      tmutil addexclusion {{ item|quote }} && echo "done";
+    fi
+  with_items: "{{ system.timemachine.exclusions }}"
+  become: yes
+  become_user: "root"
+  register: tm_exclude
+  when: system.timemachine.exclusions is defined
+  changed_when: tm_exclude.stdout == "done"
+

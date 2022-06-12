@@ -24,7 +24,18 @@ system:
   generic:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
-
+  timemachine:
+    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
+    exclusions:
+      - /Users/muc/Documents
+      - /Users/muc/SharedDocs
+      - /Users/muc/Library/Application Support/MobileSync
+      - /Users/muc/Library/Containers/com.docker.docker
+      - /Users/muc/Library/Developer/CoreSimulator/Caches
+      - /Users/muc/Library/iTunes/iPhone Software Updates
+      - /Users/pascal/Library/Containers/com.docker.docker
+      - /Users/dlazy/CurseForge
+      - /Users/dlazy/Documents
 config:
   # domain = NSGlobalDomain
   global:
