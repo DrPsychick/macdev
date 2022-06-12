@@ -1,4 +1,5 @@
 ---
+
 - name: Set hostname
   shell: |
     systemsetup -setcomputername {{ system.hostname }};
@@ -38,3 +39,5 @@
   become_user: "root"
   when: system.loginwindow is defined
 
+- include: timemachine.yml
+  when: system.timemachine is defined

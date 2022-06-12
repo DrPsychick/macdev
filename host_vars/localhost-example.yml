@@ -24,6 +24,10 @@ system:
   generic:
 #    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
 #    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+  timemachine:
+#    destination: "smb://timemachine/macbackups"
+#    exclusions:
+#      - /Users/myuser/Library/Containers/com.docker.docker
 
 ## user configuration (must be run per user)
 config:
