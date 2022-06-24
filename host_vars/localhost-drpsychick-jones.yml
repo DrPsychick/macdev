@@ -88,7 +88,7 @@ templates:
 shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/work/git/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
   - { name: "rancherVM", cmd: 'LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima" "/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl" shell 0' }
-  - { name: "fixvpn", cmd: "sudo route delete -host 85.190.148.133 192.168.1.200; sudo route add -host 85.190.148.133 192.168.1.200" }
+  - { name: "fixvpn", cmd: "sudo route delete -host 85.190.148.133 192.168.1.1; sudo route add -host 85.190.148.133 192.168.1.1" }
 
 ansible_collections:
   - { name: community.general }
@@ -118,6 +118,8 @@ brew_packages:
   - { name: kubeseal, path: "{{brew_bin}}/kubeseal" }
   - { name: pwgen, path: "{{brew_bin}}/pwgen" }
   - { name: yamllint, path: "{{brew_bin}}/yamllint" }
+  - { name: molecule, path: "{{brew_bin}}/molecule" }
+  - { name: pre-commit, path: "{{brew_bin}}/pre-commit" }
 
 brew_cask_packages:
   #- { name: docker, path: /Applications/Docker.app }
