@@ -2,7 +2,7 @@
 
 - name: Check for homebrew
   shell: >
-    [ -n "$HOMEBREW_PREFIX" ] && echo "$HOMEBREW_PREFIX" || echo "/usr/local"
+    [ -n "$HOMEBREW_PREFIX" ] && echo "$HOMEBREW_PREFIX" || brew --prefix
   register: homebrew_prefix
   changed_when: false
 
