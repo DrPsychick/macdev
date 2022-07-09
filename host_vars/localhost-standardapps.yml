@@ -25,36 +25,37 @@ system:
 #    - { key: "AdminHostInfo", value: "HostName" }
 #    - { key: "GuestEnabled", value: "0" }
   generic:
-#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
-#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
 
 ## user configuration (must be run per user)
 config:
   # domain = NSGlobalDomain
   global:
-#    - { key: "InitialKeyRepeat", int: 15 }
-#    - { key: "KeyRepeat", int: 1 }
+#    - { key: "InitialKeyRepeat", type: int, value: 15 }
+#    - { key: "KeyRepeat", type: int, value: 1 }
   generic:
-#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", type: bool, value: 1 }
   # domain = com.apple.finder
   finder:
     # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
-    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+    - { key: "FXPreferredViewStyle", type: string, value: "Nlsv" }
   # domain = com.apple.dock
   dock:
     # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
-#    - { key: "magnification", int: 1 }
-#    - { key: "tilesize", int: 32 }
-#    - { key: "largesize", int: 128 }
-#    - { key: "autohide", int: 1 }
-#    - { key: "wvous-tl-corner", int: 5 }
-#    - { key: "wvous-tl-modifier", int: 0 }
-#    - { key: "wvous-tr-corner", int: 11 }
-#    - { key: "wvous-tr-modifier", int: 0 }
-#    - { key: "wvous-bl-corner", int: 3 }
-#    - { key: "wvous-bl-modifier", int: 0 }
-#    - { key: "wvous-br-corner", int: 2 }
-#    - { key: "wvous-br-modifier", int: 0 }
+#    - { key: "magnification", type: int, value: 1 }
+#    - { key: "tilesize", type: int, value: 32 }
+#    - { key: "largesize", type: int, value: 128 }
+#    - { key: "autohide", type: int, value: 1 }
+    # hot corners: tl = top-left, br = bottom-right
+#    - { key: "wvous-tl-corner", type: int, value: 5 }
+#    - { key: "wvous-tl-modifier", type: int, value: 0 }
+#    - { key: "wvous-tr-corner", type: int, value: 11 }
+#    - { key: "wvous-tr-modifier", type: int, value: 0 }
+#    - { key: "wvous-bl-corner", type: int, value: 3 }
+#    - { key: "wvous-bl-modifier", type: int, value: 0 }
+#    - { key: "wvous-br-corner", type: int, value: 2 }
+#    - { key: "wvous-br-modifier", type: int, value: 0 }
 
 ## user files and templates:
 # overwrite: replace file on target, if it exists
