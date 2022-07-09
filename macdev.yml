@@ -29,6 +29,7 @@
       become: yes
       become_user: root
       register: sudo_check
+      changed_when: false
       ignore_errors: true
       when: role_sys
     - debug: msg="Run 'sudo echo' to fix this."

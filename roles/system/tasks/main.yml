@@ -2,42 +2,62 @@
 
 - name: Set hostname
   shell: |
-    systemsetup -setcomputername {{ system.hostname }};
-    scutil --set ComputerName {{ system.hostname }};
-    scutil --set HostName {{ system.hostname }}
-    scutil --set LocalHostName {{ system.hostname }}
-    defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ system.hostname|lower }}
+    if [ "$(scutil --get HostName)" != "{{ system.hostname }}" ]; then
+      systemsetup -setcomputername {{ system.hostname }};
+      scutil --set ComputerName {{ system.hostname }};
+      scutil --set HostName {{ system.hostname }};
+      scutil --set LocalHostName {{ system.hostname }};
+      defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ system.hostname|lower }};
+      echo "done"
+    fi
   become: yes
   become_user: "root"
+  register: set_hostname
   when: system.hostname is defined
+  changed_when: set_hostname.stdout == "done"
 
 - name: System Setup
   shell: |
-    systemsetup {{ item.key }} {{ item.value }}
+    key={{ item.key }}
+    curr=$(systemsetup ${key/set/get} | awk -F: '{print $2}' | xargs | tr '[:upper:]' '[:lower:]');
+    if [ "$curr" != "{{ item.value }}" ]; then
+      systemsetup {{ item.key }} {{ item.value }};
+      echo "done"
+    fi
   with_items: "{{ system.systemsetup }}"
   become: yes
   become_user: "root"
+  register: system_setup
   when: system.systemsetup is defined
+  changed_when: system_setup.stdout == "done"
 
 - name: Generic configuration
   shell: |
-    defaults write {{ item.domain }} {{ item.key }} \
-    {{ "-int "+item.int|string if item.int is defined }} \
-    {{ "-float "+item.float|string if item.float is defined }} \
-    {{ "-bool "+item.bool|string if item.bool is defined }} \
-    {{ "-string "+item.string if item.string is defined }}
+    curr=$(defaults read {{ item.domain }} {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write {{ item.domain }} {{ item.key }} -{{ item.type }} {{ item.value }}
+      echo "done"
+    fi
   with_items: "{{ system.generic }}"
   become: yes
   become_user: "root"
   register: generic_config
   when: system.generic is defined and item.domain is defined
+  changed_when: generic_config.stdout == "done"
 
 - name: Configure Login Window
-  shell: defaults write /Library/Preferences/com.apple.loginwindow {{ item.key }} {{ item.value }}
+  shell: |
+    curr=$(defaults read /Library/Preferences/com.apple.loginwindow {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write /Library/Preferences/com.apple.loginwindow {{ item.key }} {{ item.value }}
+      echo "done"
+    fi
   with_items: "{{ system.loginwindow }}"
   become: yes
   become_user: "root"
+  register: login_window
   when: system.loginwindow is defined
+  changed_when: login_window.stdout == "done"
 
 - include: timemachine.yml
   when: system.timemachine is defined

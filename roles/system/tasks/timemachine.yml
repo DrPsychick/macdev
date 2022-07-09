@@ -7,6 +7,7 @@
   become_user: "root"
   register: timemachine_destination
   when: system.timemachine.destination is defined
+  changed_when: false
 
 - name: Configure TimeMachine destination
   shell: >

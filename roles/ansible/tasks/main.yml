@@ -3,16 +3,22 @@
 - name: Add ansible collections
   shell: ansible-galaxy collection install {{ item.name }} --upgrade
   with_items: "{{ ansible_collections }}"
+  register: ansible_collection
   when: (item.version is not defined or item.version == "") and
         (item.source is not defined or item.source == "")
+  changed_when: ansible_collection.stdout | regex_search('was installed successfully')
 
 - name: Add ansible collections with version
   shell: ansible-galaxy collection install '{{ item.name }}:{{ item.version }}' --upgrade
   with_items: "{{ ansible_collections }}"
+  register: ansible_collection
   when: item.version is defined and item.version != "" and
         (item.source is not defined or item.source == "")
+  changed_when: ansible_collection.stdout | regex_search('was installed successfully')
 
 - name: Add ansible collections from source
   shell: ansible-galaxy collection install '{{ item.source }}' --upgrade
   with_items: "{{ ansible_collections }}"
+  register: ansible_collection
   when: item.source is defined and item.source != ""
+  changed_when: ansible_collection.stdout | regex_search('was installed successfully')
