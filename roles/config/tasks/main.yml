@@ -5,36 +5,39 @@
 
 - name: Global configuration
   shell: |
-    defaults write NSGlobalDomain {{ item.key }} \
-    {{ "-int "+item.int|string if item.int is defined }} \
-    {{ "-float "+item.float|string if item.float is defined }} \
-    {{ "-bool "+item.bool|string if item.bool is defined }} \
-    {{ "-string "+item.string if item.string is defined }}
+    curr=$(defaults read NSGlobalDomain {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write NSGlobalDomain {{ item.key }} -{{ item.type }} {{ item.value }}
+      echo "done"
+    fi
   with_items: "{{ config.global }}"
   register: global_config
   when: config.global is defined
+  changed_when: global_config.stdout == "done"
 
 - name: Generic configuration
   shell: |
-    defaults write {{ item.domain }} {{ item.key }} \
-    {{ "-int "+item.int|string if item.int is defined }} \
-    {{ "-float "+item.float|string if item.float is defined }} \
-    {{ "-bool "+item.bool|string if item.bool is defined }} \
-    {{ "-string "+item.string if item.string is defined }}
+    curr=$(defaults read {{ item.domain }} {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write {{ item.domain }} {{ item.key }} -{{ item.type }} "{{ item.value }}"
+      echo "done"
+    fi
   with_items: "{{ config.generic }}"
   register: generic_config
   when: config.generic is defined and item.domain is defined
+  changed_when: generic_config.stdout == "done"
 
 - name: Configure Finder
   shell: |
-    defaults write com.apple.finder {{ item.key }} \
-    {{ "-int "+item.int|string if item.int is defined }} \
-    {{ "-float "+item.float|string if item.float is defined }} \
-    {{ "-bool "+item.bool|string if item.bool is defined }} \
-    {{ "-string "+item.string if item.string is defined }}
+    curr=$(defaults read com.apple.finder {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write com.apple.finder {{ item.key }} -{{ item.type }} {{ item.value }}
+      echo "done"
+    fi
   with_items: "{{ config.finder }}"
   register: finder_config
   when: config.finder is defined
+  changed_when: finder_config.stdout == "done"
 
 - name: Restart Finder
   shell: killall Finder
@@ -42,14 +45,15 @@
 
 - name: Configure Dock
   shell: |
-    defaults write com.apple.dock {{ item.key }} \
-    {{ "-int "+item.int|string if item.int is defined }} \
-    {{ "-float "+item.float|string if item.float is defined }} \
-    {{ "-bool "+item.bool|string if item.bool is defined }} \
-    {{ "-string "+item.string if item.string is defined }}
+    curr=$(defaults read com.apple.dock {{ item.key }})
+    if [ "$curr" != "{{ item.value }}" ]; then
+      defaults write com.apple.dock {{ item.key }} -{{ item.type }} {{ item.value }}
+      echo "done"
+    fi
   with_items: "{{ config.dock }}"
   register: dock_config
   when: config.dock is defined
+  changed_when: dock_config.stdout == "done"
 
 - name: Restart Dock
   shell: killall Dock

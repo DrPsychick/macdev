@@ -16,14 +16,15 @@ system:
   # sudo systemsetup -help
   systemsetup:
     - { key: "-setrestartfreeze", value: "on" }
-    - { key: "-setdisplaysleep", value: "10" }
+    - { key: "-setcomputersleep", value: "5" }
+    - { key: "-setdisplaysleep", value: "1" }
   # domain = /Library/Preferences/com.apple.loginwindow
 #  loginwindow:
 #    - { key: "AdminHostInfo", value: "HostName" }
 #    - { key: "GuestEnabled", value: "0" }
   generic:
-    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
-    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
+    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
+    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
   timemachine:
     destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
     exclusions:
@@ -41,41 +42,41 @@ system:
 config:
   # domain = NSGlobalDomain
   global:
-    - { key: "InitialKeyRepeat", int: 20 }
-    - { key: "KeyRepeat", int: 1 }
+    - { key: "InitialKeyRepeat", type: int, value: 20 }
+    - { key: "KeyRepeat", type: int, value: 1 }
   generic:
-    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", bool: true }
-    - { domain: "com.apple.Safari", key: "IncludeDevelopMenu", bool: true }
-    - { domain: "com.apple.Safari", key: "WebKitDeveloperExtrasEnabledPreferenceKey", bool: true }
-    - { domain: "com.apple.Safari", key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled", bool: true }
-    - { domain: "com.apple.gamed",  key: "Disabled", bool: true }
+    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", type: bool, value: 1 }
+    - { domain: "com.apple.Safari", key: "IncludeDevelopMenu", type: bool, value: 1 }
+    - { domain: "com.apple.Safari", key: "WebKitDeveloperExtrasEnabledPreferenceKey", type: bool, value: 1 }
+    - { domain: "com.apple.Safari", key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled", type: bool, value: 1 }
+    - { domain: "com.apple.gamed",  key: "Disabled", type: bool, value: 1 }
     # touchpad configuration
-    - { domain: "com.apple.AppleMultitouchTrackpad", key: "Clicking", bool: true }
+    - { domain: "com.apple.AppleMultitouchTrackpad", key: "Clicking", type: bool, value: 1 }
     # menu clock configuration
-    - { domain: "com.apple.menuextra.clock", key: "DateFormat", string: "EEE\\ d\\ MMM\\ 'at'\\ HH:mm:ss" }
-    - { domain: "com.apple.menuextra.clock", key: "ShowDayOfWeek", int: 0 }
-    - { domain: "com.apple.menuextra.clock", key: "Show24Hour", int: 1 }
-    - { domain: "com.apple.menuextra.clock", key: "ShowSeconds", int: 1 }
-    - { domain: "com.apple.controlcenter", key: "NSStatusItem\\ Visible\\ Bluetooth", int: 1 } # requires restart of ???
+    - { domain: "com.apple.menuextra.clock", key: "DateFormat", type: string, value: "EEE d MMM 'at' HH:mm:ss" }
+    - { domain: "com.apple.menuextra.clock", key: "ShowDayOfWeek", type: int, value: 0 }
+    - { domain: "com.apple.menuextra.clock", key: "Show24Hour", type: int, value: 1 }
+    - { domain: "com.apple.menuextra.clock", key: "ShowSeconds", type: int, value: 1 }
+    - { domain: "com.apple.controlcenter", key: "NSStatusItem\\ Visible\\ Bluetooth", type: int, value: 1 } # requires restart of ???
   # domain = com.apple.finder
   finder:
-    - { key: "FXPreferredViewStyle", string: "Nlsv" }
+    - { key: "FXPreferredViewStyle", type: string, value: "Nlsv" }
   # domain = com.apple.dock
   dock:
-    - { key: "magnification", bool: true }
-    - { key: "tilesize", int: 32 }
-    - { key: "largesize", int: 128 }
-    - { key: "autohide", bool: true }
-    - { key: "showhidden", bool: true }
-    - { key: "wvous-tl-corner", int: 5 }
-    - { key: "wvous-tl-modifier", int: 0 }
-    - { key: "wvous-tr-corner", int: 11 }
-    - { key: "wvous-tr-modifier", int: 0 }
-    - { key: "wvous-bl-corner", int: 3 }
-    - { key: "wvous-bl-modifier", int: 0 }
-    - { key: "wvous-br-corner", int: 2 }
-    - { key: "wvous-br-modifier", int: 0 }
-    - { key: "expose-animation-duration", float: 0.5 }
+    - { key: "magnification", type: bool, value: 1 }
+    - { key: "tilesize", type: int, value: 32 }
+    - { key: "largesize", type: int, value: 128 }
+    - { key: "autohide", type: bool, value: 1 }
+    - { key: "showhidden", type: bool, value: 1 }
+    - { key: "wvous-tl-corner", type: int, value: 5 }
+    - { key: "wvous-tl-modifier", type: int, value: 0 }
+    - { key: "wvous-tr-corner", type: int, value: 11 }
+    - { key: "wvous-tr-modifier", type: int, value: 0 }
+    - { key: "wvous-bl-corner", type: int, value: 3 }
+    - { key: "wvous-bl-modifier", type: int, value: 0 }
+    - { key: "wvous-br-corner", type: int, value: 2 }
+    - { key: "wvous-br-modifier", type: int, value: 0 }
+    - { key: "expose-animation-duration", type: float, value: 0.5 }
 
 ## user files and templates:
 # overwrite: replace file on target, if it exists
