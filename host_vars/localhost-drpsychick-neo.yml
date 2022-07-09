@@ -9,7 +9,7 @@ role_pip: yes
 role_brew: yes
 role_app: no
 
-config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-drpsychick-trinity.yml"
+config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-drpsychick-neo.yml"
 
 system:
   hostname: neo
