@@ -9,18 +9,18 @@ role_pip: yes
 role_brew: yes
 role_app: no
 
-config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-drpsychick-jones.yml"
+config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-drpsychick-trinity.yml"
 
 system:
-  hostname: jones
+  hostname: neo
   # sudo systemsetup -help
   systemsetup:
     - { key: "-setrestartfreeze", value: "on" }
     - { key: "-setdisplaysleep", value: "10" }
   # domain = /Library/Preferences/com.apple.loginwindow
-  loginwindow:
-    - { key: "AdminHostInfo", value: "HostName" }
-    - { key: "GuestEnabled", value: "0" }
+#  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" }
+#    - { key: "GuestEnabled", value: "0" }
   generic:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", string: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", bool: false }
@@ -36,6 +36,8 @@ system:
       - /Users/pascal/Library/Containers/com.docker.docker
       - /Users/dlazy/CurseForge
       - /Users/dlazy/Documents
+
+# Per user configuration
 config:
   # domain = NSGlobalDomain
   global:
@@ -47,6 +49,14 @@ config:
     - { domain: "com.apple.Safari", key: "WebKitDeveloperExtrasEnabledPreferenceKey", bool: true }
     - { domain: "com.apple.Safari", key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled", bool: true }
     - { domain: "com.apple.gamed",  key: "Disabled", bool: true }
+    # touchpad configuration
+    - { domain: "com.apple.AppleMultitouchTrackpad", key: "Clicking", bool: true }
+    # menu clock configuration
+    - { domain: "com.apple.menuextra.clock", key: "DateFormat", string: "EEE\\ d\\ MMM\\ 'at'\\ HH:mm:ss" }
+    - { domain: "com.apple.menuextra.clock", key: "ShowDayOfWeek", int: 0 }
+    - { domain: "com.apple.menuextra.clock", key: "Show24Hour", int: 1 }
+    - { domain: "com.apple.menuextra.clock", key: "ShowSeconds", int: 1 }
+    - { domain: "com.apple.controlcenter", key: "NSStatusItem\\ Visible\\ Bluetooth", int: 1 } # requires restart of ???
   # domain = com.apple.finder
   finder:
     - { key: "FXPreferredViewStyle", string: "Nlsv" }
@@ -163,7 +173,9 @@ brew_cask_packages:
   - { name: minecraft, path: "/Applications/Minecraft.app" }
   - { name: curseforge, path: "/Applications/CurseForge.app" }
   - { name: rancher, path: "/Applications/Rancher Desktop.app" }
-  - { name: 1password, path: "/Applications/1Password 7.app" }
+  - { name: 1password, path: "/Applications/1Password.app" }
+  - { name: vnc-viewer, path: "/Applications/VNC Viewer.app" }
+  - { name: deepl, path: "/Applications/Deepl.app" }
 
 pip_packages:
   - { name: yamale, path: "{{pip_bin}}/yamale" }
