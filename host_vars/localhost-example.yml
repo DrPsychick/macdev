@@ -1,33 +1,80 @@
 ---
 
-# defaults
-user_group: admin
-# will set ACL and chgrp for /usr/local/Homebrew|Caskroom|Celler|bin
-brew_multiuser: no
-
 # roles
 role_ssh: yes
+# role_sys requires sudo
+role_sys: no
+role_cfg: no
 role_ansible: yes
-role_pip: yes
+role_pip: no
 role_brew: yes
 role_app: no
 
-# files and templates:
+## system configuration (requires sudo)
+system:
+#  # set ComputerName, HostName and NetBIOS Name
+#  hostname: example
+  # sudo systemsetup -help
+  systemsetup:
+#    - { key: "-setrestartfreeze", value: "on" }
+#    - { key: "-setcomputersleep", value: "10" }
+#    - { key: "-setdisplaysleep", value: "5" }
+  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" } # shows host name and info on login screen
+#    - { key: "GuestEnabled", value: "0" }
+  generic:
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
+  timemachine:
+#    destination: "smb://timemachine/macbackups"
+#    exclusions:
+#      - /Users/myuser/Library/Containers/com.docker.docker
+
+## user configuration (must be run per user)
+config:
+  # domain = NSGlobalDomain
+  global:
+#    - { key: "InitialKeyRepeat", type: int, value: 15 }
+#    - { key: "KeyRepeat", type: int, value: 1 }
+  generic:
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", type: bool, value: 1 }
+  # domain = com.apple.finder
+  finder:
+    # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
+    - { key: "FXPreferredViewStyle", type: string, value: "Nlsv" }
+  # domain = com.apple.dock
+  dock:
+    # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
+#    - { key: "magnification", type: int, value: 1 }
+#    - { key: "tilesize", type: int, value: 32 }
+#    - { key: "largesize", type: int, value: 128 }
+#    - { key: "autohide", type: int, value: 1 }
+    # hot corners: tl = top-left, br = bottom-right
+#    - { key: "wvous-tl-corner", type: int, value: 5 }
+#    - { key: "wvous-tl-modifier", type: int, value: 0 }
+#    - { key: "wvous-tr-corner", type: int, value: 11 }
+#    - { key: "wvous-tr-modifier", type: int, value: 0 }
+#    - { key: "wvous-bl-corner", type: int, value: 3 }
+#    - { key: "wvous-bl-modifier", type: int, value: 0 }
+#    - { key: "wvous-br-corner", type: int, value: 2 }
+#    - { key: "wvous-br-modifier", type: int, value: 0 }
+
+## user files and templates:
 # overwrite: replace file on target, if it exists
-# shell: source file in .profile
+# source=(interactive|login): source file for "interactive" session = .bashrc/.zshrc or "login" session = .profile/.zprofile
 
 # files you want to copy to the target
 files:
-  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true, shell: false }
+#  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
 
 # templates you want to copy to the target
 templates:
-  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true, shell: true }
-  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, shell: true }
+#  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+#  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
-  - { name: "localdev", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; ansible-playbook macdev.yml)" }
+  - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
 
 ansible_collections:
   - { name: community.general }
@@ -35,33 +82,34 @@ ansible_collections:
   #- { name: community.docker, version: "=1.9.0" }
   #- { name: community.kubernetes, source: "" }
 
+# TODO: at this time, only ONE user can control brew packages
 brew_packages:
-  - { name: python, path: /usr/local/bin/python3 }
-  - { name: pwgen, path: /usr/local/bin/pwgen }
-  - { name: jq, path: /usr/local/bin/jq }
-  - { name: gnupg, path: /usr/local/bin/gpg }
+  - { name: python, path: "{{ brew_bin }}/python3" }
+  - { name: pwgen, path: "{{ brew_bin }}/pwgen" }
+  - { name: jq, path: "{{ brew_bin }}/jq" }
+  - { name: gnupg, path: "{{ brew_bin }}/gpg" }
   #- { name: bash-completion, path: /usr/local/etc/profile.d/bash_completion.sh }
-  #- { name: kubernetes-cli, path: /usr/local/bin/kubectl }
-  #- { name: kubectx, path: /usr/local/bin/kubectx }
-  #- { name: hub, path: /usr/local/bin/hub }
-  #- { name: go, path: /usr/local/bin/go }
+  - { name: kubernetes-cli, path: "{{ brew_bin }}/kubectl" }
+  - { name: kubectx, path: "{{ brew_bin }}/kubectx" }
+  - { name: hub, path: "{{ brew_bin }}/hub" }
+  - { name: go, path: "{{ brew_bin }}/go" }
   #- { name: go@1.12, path: /usr/local/Cellar/go@1.12 }
-  - { name: pinentry-mac, path: /usr/local/bin/pinentry-mac }
-  #- { name: node, path: /usr/local/bin/node }
-  #- { name: telegraf, path: /usr/local/bin/telegraf }
-  - { name: mtr, path: /usr/local/sbin/mtr }
-  - { name: smartmontools, path: /usr/local/bin/smartctl }
-  #- { name: glances, path: /usr/local/bin/glances }
-  #- { name: ask-cli, path: /usr/local/bin/ask }
-  #- { name: zsh, path: /usr/local/bin/zsh }
-  #- { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
-  #- { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
+  - { name: pinentry-mac, path: "{{ brew_bin }}/pinentry-mac" }
+  - { name: node, path: "{{ brew_bin }}/node" }
+  - { name: telegraf, path: "{{ brew_bin }}/telegraf" }
+  - { name: mtr, path: "{{ brew_sbin }}/mtr" }
+  - { name: smartmontools, path: "{{ brew_bin }}/smartctl" }
+  #- { name: glances, path: "{{ brew_bin }}/glances" }
+  #- { name: ask-cli, path: "{{ brew_bin }}/ask" }
+  - { name: zsh, path: "{{ brew_bin }}/zsh" }
+  - { name: zsh-syntax-highlighting, path: /usr/local/share/zsh-syntax-highlighting }
+  - { name: zsh-autosuggestions, path: /usr/local/share/zsh-autosuggestions }
 
 brew_cask_packages:
-  #- { name: docker, path: /Applications/Docker.app }
   - { name: iterm2, path: /Applications/iTerm.app }
-  #- { name: google-chrome, path: /Applications/Google Chrome.app }
-  - { name: atom, path: /Applications/Atom.app }
+  - { name: google-chrome, path: /Applications/Google Chrome.app }
+  #- { name: docker, path: /Applications/Docker.app }
+  #- { name: atom, path: /Applications/Atom.app }
   #- { name: postman, path: /Applications/Postman.app }
   #- { name: slack, path: /Applications/Slack.app }
   #- { name: macpass, path: /Applications/MacPass.app }
@@ -75,14 +123,11 @@ brew_cask_packages:
   #- { name: moonlight, path: "/Applications/Moonlight.app" }
   #- { name: zoom, path: "/Applications/zoom.us.app" }
   #- { name: discord, path: "/Applications/Discord.app" }
-  #- { name: google-backup-and-sync, path: "/Applications/Backup and Sync.app" }
+  #- { name: google-drive, path: "/Applications/Google Drive.app" }
 
-pip_packages:
-  - { name: ansible, path: /usr/local/bin/ansible }
-  #- { name: awscli, path: /usr/local/bin/aws }
-
-# mercurial is part of distutils
-pip_omit_upgrade: "mercurial"
+#pip_packages:
+#  - { name: ansible, path: "{{ pip_bin }}/ansible" }
+#  - { name: awscli, path: "{{ pip_bin }}/aws" }
 
 # supports .zip and .dmg
 app_packages:
