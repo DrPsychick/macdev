@@ -36,6 +36,19 @@
   debug:
     msg: "profile '{{ shell_profile }}', rc file '{{ shell_rc }}'"
 
+- name: Determine install path
+  shell: >
+    [ -n "$HOMEBREW_PREFIX" ] && echo "$HOMEBREW_PREFIX" || echo "/usr/local"
+  register: homebrew_prefix
+  changed_when: false
+
+- name: Set variables for install paths
+  set_fact:
+    brew_prefix: "{{ homebrew_prefix.stdout }}"
+    brew_bin: "{{ homebrew_prefix.stdout }}/bin"
+    brew_sbin: "{{ homebrew_prefix.stdout }}/sbin"
+  when: homebrew_prefix.stdout != ""
+
 - name: Load shell profile in zsh
   lineinfile:
     dest: '{{ "$HOME/" + shell_profile }}'
