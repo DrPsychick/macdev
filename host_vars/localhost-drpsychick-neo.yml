@@ -183,7 +183,7 @@ brew_cask_packages:
   - { name: vnc-viewer, path: "/Applications/VNC Viewer.app" }
   - { name: zoom, path: "/Applications/zoom.us.app" }
 
-pip_packages:
+pip_packages: []
 #  - { name: yamale, path: "{{pip_bin}}/yamale" }
 #  - { name: kubernetes, path: "/lib/python3.9/site-packages/kubernetes" }
 #  - { name: ansible, path: "{{pip_bin}}/ansible" }
