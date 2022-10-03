@@ -1,0 +1,100 @@
+---
+
+# roles
+role_ssh: yes
+# role_sys requires sudo
+role_sys: no
+role_cfg: no
+role_ansible: yes
+role_pip: no
+role_brew: yes
+role_app: no
+
+## system configuration (requires sudo)
+system:
+#  # set ComputerName, HostName and NetBIOS Name
+#  hostname: example
+  # sudo systemsetup -help
+  systemsetup:
+#    - { key: "-setrestartfreeze", value: "on" }
+#    - { key: "-setcomputersleep", value: "10" }
+#    - { key: "-setdisplaysleep", value: "5" }
+  loginwindow:
+#    - { key: "AdminHostInfo", value: "HostName" } # shows host name and info on login screen
+#    - { key: "GuestEnabled", value: "0" }
+  generic:
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
+#    - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
+  timemachine:
+#    destination: "smb://timemachine/macbackups"
+#    exclusions:
+#      - /Users/myuser/Library/Containers/com.docker.docker
+
+## user configuration (must be run per user)
+config:
+  # domain = NSGlobalDomain
+  global:
+#    - { key: "InitialKeyRepeat", type: int, value: 15 }
+#    - { key: "KeyRepeat", type: int, value: 1 }
+  generic:
+#    - { domain: "com.apple.desktopservices", key: "DSDontWriteNetworkStores", type: bool, value: 1 }
+  # domain = com.apple.finder
+  finder:
+    # available views: `icnv`, `clmv`, `Flwv`, `Nlsv`
+    - { key: "FXPreferredViewStyle", type: string, value: "Nlsv" }
+  # domain = com.apple.dock
+  dock:
+    # https://github.com/mathiasbynens/dotfiles/blob/c886e139233320e29fd882960ba3dd388d57afd7/.macos#L356
+#    - { key: "magnification", type: int, value: 1 }
+#    - { key: "tilesize", type: int, value: 32 }
+#    - { key: "largesize", type: int, value: 128 }
+#    - { key: "autohide", type: int, value: 1 }
+    # hot corners: tl = top-left, br = bottom-right
+#    - { key: "wvous-tl-corner", type: int, value: 5 }
+#    - { key: "wvous-tl-modifier", type: int, value: 0 }
+#    - { key: "wvous-tr-corner", type: int, value: 11 }
+#    - { key: "wvous-tr-modifier", type: int, value: 0 }
+#    - { key: "wvous-bl-corner", type: int, value: 3 }
+#    - { key: "wvous-bl-modifier", type: int, value: 0 }
+#    - { key: "wvous-br-corner", type: int, value: 2 }
+#    - { key: "wvous-br-modifier", type: int, value: 0 }
+
+## user files and templates:
+# overwrite: replace file on target, if it exists
+# source=(interactive|login): source file for "interactive" session = .bashrc/.zshrc or "login" session = .profile/.zprofile
+
+# files you want to copy to the target
+files:
+#  - { name: "gitconfig-example", path: "$HOME/.gitconfig-example", overwrite: true }
+
+# templates you want to copy to the target
+templates:
+#  - { name: "bashrc-example", path: "$HOME/.bashrc-example", overwrite: true }
+#  - { name: "bash_aliases-example", path: "$HOME/.bash_aliases-example", overwrite: true, source: "interactive" }
+
+# instead of copying a file or template, you can define aliases one by one
+shell_aliases:
+  - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
+
+ansible_collections:
+  - { name: community.general }
+  # see https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#install-multiple-collections-with-a-requirements-file
+  #- { name: community.docker, version: "=1.9.0" }
+  #- { name: community.kubernetes, source: "" }
+
+brew_packages:
+  - { name: pwgen, path: "{{ brew_bin }}/pwgen" }
+  - { name: jq, path: "{{ brew_bin }}/jq" }
+
+brew_cask_packages:
+  - { name: iterm2, path: /Applications/iTerm.app }
+
+pip_packages:
+  - { name: yamale, path: "{{pip_bin}}/yamale" }
+
+# supports .zip and .dmg
+app_packages: []
+  # - { name: iTerm2, app: "iTerm", url: https://iterm2.com/downloads/stable/iTerm2-3_3_2.zip } # brew install iterm2
+  # - { name: Atom, app: "Atom", url: https://github.com/atom/atom/releases/download/v1.40.1/atom-mac.zip } # brew install atom
+  # - { name: Chrome, app: "Google Chrome", url: https://dl.google.com/chrome/mac/stable/GCEA/googlechrome.dmg } # brew install google-chrome
+
