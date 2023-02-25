@@ -31,12 +31,17 @@ system:
       - /Users/muc/Documents
       - /Users/muc/SharedDocs
       - /Users/muc/Library/Application Support/MobileSync
+      - /Users/muc/Library/Application Support/rancher-desktop/lima/
+      - /Users/muc/Library/Caches
       - /Users/muc/Library/Containers/com.docker.docker
       - /Users/muc/Library/Developer/CoreSimulator/Caches
       - /Users/muc/Library/iTunes/iPhone Software Updates
+      - /Users/pascal/Library/Application Support/rancher-desktop/lima/
+      - /Users/pascal/Library/Caches
       - /Users/pascal/Library/Containers/com.docker.docker
       - /Users/dlazy/CurseForge
       - /Users/dlazy/Documents
+      - /Users/snoopy/Library/iTunes/iPhone Software Updates
 
 # Per user configuration
 config:

@@ -150,6 +150,7 @@ brew_cask_packages:
   - { name: gimp, path: "/Applications/Gimp-2.10.app" }
   - { name: goland, path: "/Applications/GoLand.app" }
   - { name: google-chrome, path: "/Applications/Google Chrome.app" }
+  - { name: google-cloud-sdk, path: "/opt/homebrew/bin/gcloud" }
   - { name: google-drive, path: "/Applications/Google Drive.app" }
   - { name: iterm2, path: "/Applications/iTerm.app" }
   - { name: krita, path: "/Applications/krita.app" }
