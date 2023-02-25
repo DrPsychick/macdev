@@ -93,13 +93,13 @@ files:
   #- { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
 
 # templates you want to copy to the target
-templates:
-  - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
-  - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
-  - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true }
-  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
-  - { name: "gitconfig-work", path: "$HOME/.gitconfig-work", overwrite: true }
-  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
+templates: []
+#  - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
+#  - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
+#  - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true }
+#  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
+#  - { name: "gitconfig-work", path: "$HOME/.gitconfig-work", overwrite: true }
+#  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
