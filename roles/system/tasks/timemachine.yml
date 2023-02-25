@@ -20,10 +20,14 @@
 # -> run ansible in your normal terminal
 - name: Add exclusions
   shell: >
-    tmutil isexcluded {{ item|quote }} || exit 1;
-    included=$(tmutil isexcluded {{ item|quote }} | grep 'Included');
-    if [ -n "$included" ]; then
-      tmutil addexclusion {{ item|quote }} && echo "done";
+    if [ -d {{ item|quote }} ]; then
+      tmutil isexcluded {{ item|quote }} || exit 1;
+      included=$(tmutil isexcluded {{ item|quote }} | grep 'Included');
+      if [ -n "$included" ]; then
+        tmutil addexclusion {{ item|quote }} && echo "done";
+      fi
+    else
+      echo "skip: directory does not exist";
     fi
   with_items: "{{ system.timemachine.exclusions }}"
   become: yes
@@ -31,4 +35,5 @@
   register: tm_exclude
   when: system.timemachine.exclusions is defined
   changed_when: tm_exclude.stdout == "done"
+
 
