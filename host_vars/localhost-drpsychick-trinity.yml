@@ -26,22 +26,23 @@ system:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
   timemachine:
-    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
+    destination: "smb://snoopy@neb/macbackups"
     exclusions:
       - /Users/muc/Documents
       - /Users/muc/SharedDocs
       - /Users/muc/Library/Application Support/MobileSync
-      - /Users/muc/Library/Application Support/rancher-desktop/lima/
       - /Users/muc/Library/Caches
       - /Users/muc/Library/Containers/com.docker.docker
       - /Users/muc/Library/Developer/CoreSimulator/Caches
       - /Users/muc/Library/iTunes/iPhone Software Updates
-      - /Users/pascal/Library/Application Support/rancher-desktop/lima/
+      - /Users/muc/Library/iTunes/iPad Software Updates
+      - /Users/muc/Library/Mobile Documents
       - /Users/pascal/Library/Caches
-      - /Users/pascal/Library/Containers/com.docker.docker
+      - /Users/pascal/Library/Developer/CoreSimulator/Caches
       - /Users/dlazy/CurseForge
       - /Users/dlazy/Documents
-      - /Users/snoopy/Library/iTunes/iPhone Software Updates
+      - /Users/snoopy/Documents
+      - /Users/snoopy/SharedDocs
 
 # Per user configuration
 config:
@@ -161,7 +162,7 @@ brew_cask_packages:
   - { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
   - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }
   - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
-  - { name: qsync-client, path: "/Applications/QSync Client.app" }
+  #- { name: qsync-client, path: "/Applications/QSync Client.app" }
   - { name: discord, path: "/Applications/Discord.app" }
   - { name: google-drive, path: "/Applications/Google Drive.app" }
   - { name: vlc, path: "/Applications/VLC.app" }
