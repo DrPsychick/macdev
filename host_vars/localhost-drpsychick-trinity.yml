@@ -41,8 +41,14 @@ system:
       - /Users/pascal/Library/Developer/CoreSimulator/Caches
       - /Users/dlazy/CurseForge
       - /Users/dlazy/Documents
+      - /Users/dlazy/Library/Application Support/MobileSync
+      - /Users/dlazy/Library/Caches
+      - /Users/snoopy/CurseForge
       - /Users/snoopy/Documents
       - /Users/snoopy/SharedDocs
+      - /Users/snoopy/Library/Application Support/MobileSync
+      - /Users/snoopy/Library/Caches
+
 
 # Per user configuration
 config:
