@@ -26,11 +26,11 @@ system:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
   timemachine:
-    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
-    exclusions:
-      - /Users/muc/Documents
-      - /Users/Shared/SharedDocs
-      - /Users/snoopy/Documents
+#    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
+#    exclusions:
+#      - /Users/muc/Documents
+#      - /Users/Shared/SharedDocs
+#      - /Users/snoopy/Documents
 
 # Per user configuration
 config:
@@ -147,7 +147,7 @@ brew_cask_packages:
   - { name: drawio, path: "/Applications/draw.io.app" }
   - { name: finicky, path: "/Applications/finicky.app" }
   #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
-  - { name: gimp, path: "/Applications/Gimp-2.10.app" }
+  - { name: gimp, path: "/Applications/GIMP.app" }
   - { name: goland, path: "/Applications/GoLand.app" }
   - { name: google-chrome, path: "/Applications/Google Chrome.app" }
   - { name: google-cloud-sdk, path: "/opt/homebrew/bin/gcloud" }
@@ -170,7 +170,7 @@ brew_cask_packages:
   - { name: postman, path: "/Applications/Postman.app" }
   - { name: pycharm, path: "/Applications/PyCharm.app" }
   #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
-  - { name: qsync-client, path: "/Applications/QSync Client.app" }
+  #- { name: qsync-client, path: "/Applications/QSync Client.app" }
   - { name: rancher, path: "/Applications/Rancher Desktop.app" }
   - { name: slack, path: "/Applications/Slack.app" }
   - { name: spectacle, path: "/Applications/Spectacle.app" }

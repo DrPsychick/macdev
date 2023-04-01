@@ -100,12 +100,12 @@ brew_cask_packages:
   #- { name: docker, path: "/Applications/Docker.app" }
   - { name: iterm2, path: "/Applications/iTerm.app" }
   - { name: google-chrome, path: "/Applications/Google Chrome.app" }
-#  - { name: atom, path: "/Applications/Atom.app" }
-#  - { name: postman, path: "/Applications/Postman.app" }
+  #- { name: atom, path: "/Applications/Atom.app" }
+  #- { name: postman, path: "/Applications/Postman.app" }
   - { name: slack, path: "/Applications/Slack.app" }
   - { name: macpass, path: "/Applications/MacPass.app" }
   - { name: openoffice, path: "/Applications/OpenOffice.app" }
-#  - { name: gimp, path: "/Applications/GIMP-2.10.app" }
+  #- { name: gimp, path: "/Applications/GIMP.app" }
   #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
   #- { name: spectacle, path: "/Applications/Spectacle.app" }
   - { name: drawio, path: "/Applications/draw.io.app" }

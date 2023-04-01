@@ -114,7 +114,7 @@ brew_cask_packages:
   #- { name: slack, path: /Applications/Slack.app }
   #- { name: macpass, path: /Applications/MacPass.app }
   #- { name: openoffice, path: /Applications/OpenOffice.app }
-  #- { name: gimp, path: /Applications/Gimp-2.10.app }
+  #- { name: gimp, path: /Applications/GIMP.app }
   #- { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
   #- { name: spectacle, path: "/Applications/Spectacle.app" }
   #- { name: drawio, path: "/Applications/draw.io.app" }

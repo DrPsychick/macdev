@@ -105,7 +105,7 @@ brew_cask_packages:
   - { name: zoomus, path: /Applications/zoom.us.app }
   #- { name: openoffice, path: /Applications/OpenOffice.app }
   #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
-  #- { name: gimp, path: /Applications/Gimp-2.10.app }
+  #- { name: gimp, path: /Applications/GIMP.app }
   - { name: pycharm-ce, path: "/Applications/PyCharm CE.app" }
   #- { name: pycharm, path: "/Applications/PyCharm.app" }
   #- { name: goland, path: "/Applications/GoLand.app" }
