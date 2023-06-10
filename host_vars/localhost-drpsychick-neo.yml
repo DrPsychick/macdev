@@ -113,6 +113,7 @@ brew_packages:
   - { name: go, path: "{{brew_bin}}/go" }
   - { name: golangci-lint, path: "{{brew_bin}}/golangci-lint" }
   - { name: goreleaser, path: "{{brew_bin}}/goreleaser" }
+  - { name: gron, path: "{{brew_bin}}/gron" }
   #- { name: helm, path: "{{brew_bin}}/helm" } # conflicts with Rancher Desktop
   - { name: hub, path: "{{brew_bin}}/hub" }
   - { name: jq, path: "{{brew_bin}}/jq" }
