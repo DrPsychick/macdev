@@ -108,6 +108,7 @@ brew_packages:
   - { name: awscli, path: "{{ brew_bin }}/aws" }
   - { name: chart-testing, path: "{{brew_bin}}/ct" }
   - { name: dive, path: "{{brew_bin}}/dive" }
+  - { name: direnv, path: "{{brew_bin}}/direnv" }
   - { name: glances, path: "{{brew_bin}}/glances" }
   - { name: gnupg, path: "{{brew_bin}}/gpg" }
   - { name: go, path: "{{brew_bin}}/go" }
