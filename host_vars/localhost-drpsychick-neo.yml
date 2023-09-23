@@ -178,6 +178,7 @@ brew_cask_packages:
   - { name: spectacle, path: "/Applications/Spectacle.app" }
   - { name: spotify, path: "/Applications/Spotify.app" }
   - { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
+  - { name: threema, path: "/Applications/Threema.app" }
   - { name: tunnelblick, path: "/Applications/Tunnelblick.app" }
   - { name: utm, path: "/Applications/UTM.app" }
   #- { name: virtualbox, path: "/Applications/VirtualBox.app" }
