@@ -17,7 +17,8 @@ system:
   systemsetup:
     - { key: "-setrestartfreeze", value: "on" }
     - { key: "-setcomputersleep", value: "5" }
-    - { key: "-setdisplaysleep", value: "1" }
+    - { key: "-setdisplaysleep", value: "3" }
+  # pmset displaysleep 3 / pmset -g
   # domain = /Library/Preferences/com.apple.loginwindow
 #  loginwindow:
 #    - { key: "AdminHostInfo", value: "HostName" }
@@ -117,6 +118,7 @@ brew_packages:
   - { name: gron, path: "{{brew_bin}}/gron" }
   #- { name: helm, path: "{{brew_bin}}/helm" } # conflicts with Rancher Desktop
   - { name: hub, path: "{{brew_bin}}/hub" }
+  - { name: imagemagick, path: "{{brew_bin}}/magick" }
   - { name: jq, path: "{{brew_bin}}/jq" }
   - { name: k3d, path: "{{brew_bin}}/k3d" }
   #- { name: kubectx, path: "{{brew_bin}}/kubectx" }
@@ -138,6 +140,7 @@ brew_packages:
   - { name: watch, path: "{{brew_bin}}/watch" }
   - { name: yamale, path: "{{brew_bin}}/yamale" }
   - { name: yamllint, path: "{{brew_bin}}/yamllint" }
+  - { name: yarn, path: "{{brew_bin}}/yarn" }
 
 brew_cask_packages:
   - { name: 1password, path: "/Applications/1Password.app" }
