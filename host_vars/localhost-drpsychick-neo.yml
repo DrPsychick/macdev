@@ -53,7 +53,9 @@ config:
     - { domain: "com.apple.menuextra.clock", key: "Show24Hour", type: int, value: 1 }
     - { domain: "com.apple.menuextra.clock", key: "ShowSeconds", type: int, value: 1 }
     - { domain: "com.apple.controlcenter", key: "NSStatusItem\\ Visible\\ Bluetooth", type: int, value: 1 } # requires restart of ???
-  # domain = com.apple.finder
+    # do not rearrange spaces/desktops
+    - { domain: "com.apple.dock", key: "mru-spaces", type: bool, value: 0 }
+    # domain = com.apple.finder
   finder:
     - { key: "FXPreferredViewStyle", type: string, value: "Nlsv" }
   # domain = com.apple.dock
