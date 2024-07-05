@@ -1,0 +1,31 @@
+os: osx
+
+jobs:
+  include:
+    - name: "XCode 10.1 macOS 10.13.6"
+      osx_image: xcode10.1
+      # swiftlint requires xcode10.2
+      env: BREW_UNINSTALL="postgis gdal swiftlint"
+    - name: "XCode 11.3 macOS 10.14.6"
+      osx_image: xcode11.3
+      env: BREW_UNINSTALL="postgis gdal"
+    - name: "XCode 12 macOS 10.15.6"
+      osx_image: xcode12
+
+install:
+  - brew list
+  - brew install python
+  - (test -n "$BREW_UNINSTALL" && brew uninstall $BREW_UNINSTALL || exit 0)
+  - pip3 install ansible
+
+script:
+  - ansible-playbook macdev.yml --syntax-check
+  - cp host_vars/localhost-ci.yml host_vars/localhost.yml
+  # run the playbook
+  - ansible-playbook macdev.yml -e brew_skip_upgrade=true
+  # run again -> expect no change
+  - >
+    ansible-playbook macdev.yml -e brew_skip_upgrade=true
+    | grep -B1 -A30 -e 'changed=0.*failed=0' -e '^changed'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
