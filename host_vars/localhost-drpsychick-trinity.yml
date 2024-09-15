@@ -16,8 +16,8 @@ system:
   # sudo systemsetup -help
   systemsetup:
     - { key: "-setrestartfreeze", value: "on" }
-    - { key: "-setcomputersleep", value: "5" }
-    - { key: "-setdisplaysleep", value: "1" }
+    #- { key: "-setcomputersleep", value: "5" }
+    # - { key: "-setdisplaysleep", value: "3" }
   # domain = /Library/Preferences/com.apple.loginwindow
 #  loginwindow:
 #    - { key: "AdminHostInfo", value: "HostName" }
@@ -25,31 +25,25 @@ system:
   generic:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
-  timemachine:
-    destination: "smb://snoopy@neb/macbackups"
-    exclusions:
-      - /Users/muc/Documents
-      - /Users/muc/SharedDocs
-      - /Users/muc/Library/Application Support/MobileSync
-      - /Users/muc/Library/Caches
-      - /Users/muc/Library/Containers/com.docker.docker
-      - /Users/muc/Library/Developer/CoreSimulator/Caches
-      - /Users/muc/Library/iTunes/iPhone Software Updates
-      - /Users/muc/Library/iTunes/iPad Software Updates
-      - /Users/muc/Library/Mobile Documents
-      - /Users/pascal/Library/Caches
-      - /Users/pascal/Library/Developer/CoreSimulator/Caches
-      - /Users/dlazy/CurseForge
-      - /Users/dlazy/Documents
-      - /Users/dlazy/Library/Application Support/MobileSync
-      - /Users/dlazy/Library/Caches
-      - /Users/snoopy/CurseForge
-      - /Users/snoopy/Documents
-      - /Users/snoopy/SharedDocs
-      - /Users/snoopy/Library/Application Support/MobileSync
-      - /Users/snoopy/Library/Caches
-
-
+#  timemachine:
+#    destination: "smb://snoopy@neb/macbackups"
+#    exclusions:
+#      - /Users/muc/Documents
+#      - /Users/muc/SharedDocs
+#      - /Users/muc/Library/Application Support/MobileSync
+#      - /Users/muc/Library/Caches
+#      - /Users/muc/Library/Containers/com.docker.docker
+#      - /Users/muc/Library/Developer/CoreSimulator/Caches
+#      - /Users/muc/Library/iTunes/iPhone Software Updates
+#      - /Users/muc/Library/iTunes/iPad Software Updates
+#      - /Users/muc/Library/Mobile Documents
+#      - /Users/pascal/Library/Caches
+#      - /Users/pascal/Library/Developer/CoreSimulator/Caches
+#      - /Users/dlazy/CurseForge
+#      - /Users/dlazy/Documents
+#      - /Users/snoopy/Documents
+#      - /Users/snoopy/SharedDocs
+#
 # Per user configuration
 config:
   # domain = NSGlobalDomain
@@ -106,7 +100,7 @@ templates: []
 #  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
 #  - { name: "gitconfig-work", path: "$HOME/.gitconfig-work", overwrite: true }
 #  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
-
+#
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/work/git/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
@@ -168,7 +162,6 @@ brew_cask_packages:
   - { name: sweet-home3d, path: "/Applications/Sweet Home 3D.app" }
   - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }
   - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
-  #- { name: qsync-client, path: "/Applications/QSync Client.app" }
   - { name: discord, path: "/Applications/Discord.app" }
   - { name: google-drive, path: "/Applications/Google Drive.app" }
   - { name: vlc, path: "/Applications/VLC.app" }
