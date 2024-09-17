@@ -1,8 +1,9 @@
-# this is pretty much my own config for my MacBook Air M1
 ---
 
 # roles
 role_ssh: yes
+role_sys: yes
+role_cfg: yes
 role_ansible: true
 role_pip: yes
 role_brew: yes
@@ -132,4 +133,3 @@ brew_cask_packages:
   #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
   - { name: finicky, path: "/Applications/finicky.app" }
   - { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
- 
