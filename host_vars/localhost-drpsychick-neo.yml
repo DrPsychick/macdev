@@ -16,8 +16,8 @@ system:
   # sudo systemsetup -help
   systemsetup:
     - { key: "-setrestartfreeze", value: "on" }
-    - { key: "-setcomputersleep", value: "5" }
-    - { key: "-setdisplaysleep", value: "3" }
+    #- { key: "-setcomputersleep", value: "5" }
+    #- { key: "-setdisplaysleep", value: "3" }
   # pmset displaysleep 3 / pmset -g
   # domain = /Library/Preferences/com.apple.loginwindow
 #  loginwindow:
@@ -112,6 +112,7 @@ brew_packages:
   - { name: chart-testing, path: "{{brew_bin}}/ct" }
   - { name: dive, path: "{{brew_bin}}/dive" }
   - { name: direnv, path: "{{brew_bin}}/direnv" }
+  - { name: findutils, path: "{{brew_bin}}/findutils" }
   - { name: glances, path: "{{brew_bin}}/glances" }
   - { name: gnupg, path: "{{brew_bin}}/gpg" }
   - { name: go, path: "{{brew_bin}}/go" }
@@ -167,6 +168,7 @@ brew_cask_packages:
   #- { name: libreoffice, path: "/Applications/LibreOffice.app" }
   - { name: macpass, path: "/Applications/MacPass.app" }
   - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
+  - { name: mattermost, path: "/Applications/Mattermost.app" }
   - { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
   - { name: minecraft, path: "/Applications/Minecraft.app" }
   #- { name: mindforger, path: "/Applications/mindforger.app" }
