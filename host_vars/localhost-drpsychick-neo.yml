@@ -123,6 +123,7 @@ brew_packages:
   - { name: imagemagick, path: "{{brew_bin}}/magick" }
   - { name: jq, path: "{{brew_bin}}/jq" }
   - { name: k3d, path: "{{brew_bin}}/k3d" }
+  - { name: kind, path: "{{brew_bin}}/kind" }
   #- { name: kubectx, path: "{{brew_bin}}/kubectx" }
   #- { name: kubernetes-cli, path: "{{brew_bin}}/kubectl" } # conflicts with Rancher Desktop
   - { name: kubeseal, path: "{{brew_bin}}/kubeseal" }
@@ -131,6 +132,7 @@ brew_packages:
   - { name: molecule, path: "{{brew_bin}}/molecule" }
   - { name: mtr, path: "{{brew_sbin}}/mtr" }
   - { name: node, path: "{{brew_bin}}/node" }
+  - { name: operator-sdk, path: "{{brew_bin}}/operator-sdk" }
   - { name: packer, path: "{{ brew_bin }}/packer" }
   - { name: pinentry-mac, path: "{{brew_bin}}/pinentry-mac" }
   - { name: pre-commit, path: "{{brew_bin}}/pre-commit" }
@@ -152,6 +154,7 @@ brew_cask_packages:
   - { name: deepl, path: "/Applications/Deepl.app" }
   - { name: discord, path: "/Applications/Discord.app" }
   - { name: drawio, path: "/Applications/draw.io.app" }
+  - { name: element, path: "/Applications/element.app" }
   - { name: finicky, path: "/Applications/finicky.app" }
   #- { name: qdslrdashboard, path: "/Applications/qDslrDashboard.app" }
   - { name: gimp, path: "/Applications/GIMP.app" }
@@ -170,6 +173,7 @@ brew_cask_packages:
   - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }
   #- { name: moom, path: "/Applications/Moom.app" }
   - { name: moonlight, path: "/Applications/Moonlight.app" }
+  - { name: nordvpn, path: "/Applications/NordVPN.app" }
   - { name: obs, path: "/Applications/OBS.app" }
   - { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
   - { name: obsidian, path: "/Applications/Obsidian.app" }
