@@ -7,15 +7,21 @@
   when: item.source == "web"
 
 - name: Fetch from 1password
-  ansible.builtin.shell:
-    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}");
+  ansible.builtin.shell: |
+    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}")
+    if [ ! -r "{{ playbook_dir }}/files/{{ item.file }}" ]; then echo "changed"; fi
     op read op://{{ item.op|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "1password"
+  register: fetch_1pass
+  changed_when: fetch_1pass.stdout|regex_search("changed")
 
 - name: Fetch from vault
-  ansible.builtin.shell:
+  ansible.builtin.shell: |
     mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}");
+    if [ ! -r "{{ playbook_dir }}/files/{{ item.file }}" ]; then echo "changed"; fi
     vault read {{ item.path|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "vault"
+  register: fetch_vault
+  changed_when: fetch_vault.stdout|regex_search("changed")

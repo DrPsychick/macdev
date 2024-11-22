@@ -118,6 +118,9 @@ ansible_collections:
   - { name: community.docker }
   - { name: community.kubernetes } # , version: "", source: "" }
 
+brew_taps:
+  - hashicorp/tap
+
 brew_packages:
   - { name: ansible, path: "{{brew_bin}}/ansible" }
   - { name: ansible-lint, path: "{{brew_bin}}/ansible-lint" }
@@ -187,7 +190,7 @@ brew_cask_packages:
   - { name: macpass, path: "/Applications/MacPass.app" }
   - { name: macs-fan-control, path: "/Applications/Macs Fan Control.app" }
   - { name: mattermost, path: "/Applications/Mattermost.app" }
-  - { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
+  #- { name: microsoft-teams, path: "/Applications/Microsoft Teams.app" }
   - { name: minecraft, path: "/Applications/Minecraft.app" }
   #- { name: mindforger, path: "/Applications/mindforger.app" }
   - { name: monitorcontrol, path: "/Applications/MonitorControl.app" }

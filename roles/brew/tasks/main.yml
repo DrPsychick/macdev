@@ -19,6 +19,11 @@
   when: not brew_installed
   failed_when: not brew_installed
 
+- name: Add homebrew taps
+  shell: brew tap {{ item }}
+  with_items: "{{ brew_taps }}"
+  when: brew_taps|default([])|length > 0
+
 - name: Upgrade homebrew
   shell: brew upgrade
   register: brew_upgrade
@@ -30,7 +35,7 @@
   args:
     creates: "{{ item.path }}"
   with_items: "{{ brew_packages }}"
-  when: brew_packages[0] is defined
+  when: brew_packages|default([])|length > 0
 
 - name: Upgrade homebrew casks
   shell: brew upgrade --cask
@@ -42,5 +47,13 @@
   args:
     creates: "{{ item.path }}"
   with_items: "{{ brew_cask_packages }}"
-  when: brew_cask_packages[0] is defined
+  when: brew_cask_packages|default([])|length > 0
+  changed_when: false
 
+- name: List outdated casks
+  shell: brew outdated --casks
+  register: outdated_casks
+  changed_when: false
+- debug:
+    msg: "{{ outdated_casks.stdout }}"
+  when: outdated_casks.stdout != ""
