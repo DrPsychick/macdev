@@ -9,3 +9,7 @@
 # enforce git URLs, using ssh instead of https or vice versa
 [url "git@my.service:username"]
   insteadOf = "https://my.service/username"
+
+# include gitconfig based on path
+[includeIf "gitdir:~/my/git/parent/"]
+  path = .gitconfig-private

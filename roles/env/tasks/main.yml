@@ -26,6 +26,8 @@
   set_fact:
     user_group: '{{ user_group|default("admin") }}'
     shell_aliases: '{{ shell_aliases|default([]) }}'
+    sync_files: '{{ sync_files|default([]) }}'
+    sync_templates: '{{ sync_templates|default([]) }}'
     files: '{{ files|default([]) }}'
     templates: '{{ templates|default([]) }}'
     zsh_load_sh_profile: '{{ zsh_load_sh_profile|default(false) }}'
@@ -65,6 +67,19 @@
     create: yes
   with_items: "{{ shell_aliases }}"
   when: shell_aliases|length > 0
+
+# sync from remote
+- name: Sync files
+  include_tasks: sync.yml
+  vars:
+    sources: "{{ sync_files }}"
+  when: sync_files|length > 0
+
+- name: Sync templates
+  include_tasks: sync.yml
+  vars:
+    sources: "{{ sync_templates }}"
+  when: sync_templates|length > 0
 
 # files
 # fails if a file exists that should not be overwritten

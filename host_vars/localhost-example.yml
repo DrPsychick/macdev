@@ -10,6 +10,17 @@ role_pip: no
 role_brew: yes
 role_app: no
 
+# fetch this file from a remote location
+#config_url: "https://raw.githubusercontent.com/DrPsychick/macdev/master/host_vars/localhost-example.yml"
+
+# sync files/templates from a remote location.
+# currenty "1password" (1password-cli), "vault" (hashicorp vault) and "web" are supported.
+sync_files: []
+  #- { file: "mysecretdoc", source: "1password", op: "vault/name/filename" }
+  #- { file: "mysecret", source: "vault", path: "vault/name/filename" }
+  #- { file: "myfile", source: "web", url: "https://s3..orelse..example.com/myfile" }
+sync_templates: []
+
 ## system configuration (requires sudo)
 system:
 #  # set ComputerName, HostName and NetBIOS Name
@@ -75,6 +86,12 @@ templates:
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
+
+ssh_keys:
+  - { name: "id_rsa", source: "files", path: "id_rsa" }
+  - { name: "id_rsa_private", source: "hashicorp/vault", mount: "", path: "", format: "" }
+  # 1password can integrate directly with SSH
+  # - { name: "id_rsa2", source: "1password", url: "", id: "" }
 
 ansible_collections:
   - { name: community.general }
