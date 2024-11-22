@@ -73,12 +73,14 @@
   include_tasks: sync.yml
   vars:
     sources: "{{ sync_files }}"
+    target_path: "files"
   when: sync_files|length > 0
 
 - name: Sync templates
   include_tasks: sync.yml
   vars:
     sources: "{{ sync_templates }}"
+    target_path: "templates"
   when: sync_templates|length > 0
 
 # files

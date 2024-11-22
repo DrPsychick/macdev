@@ -2,15 +2,15 @@
 - name: Fetch from web
   ansible.builtin.get_url:
     url: item.url
-    dest: "{{ playbook_dir }}/files/{{ item.file }}"
+    dest: "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "web"
 
 - name: Fetch from 1password
   ansible.builtin.shell: |
-    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}")
-    if [ ! -r "{{ playbook_dir }}/files/{{ item.file }}" ]; then echo "changed"; fi
-    op read op://{{ item.op|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
+    mkdir -p $(dirname "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}")
+    if [ ! -r "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}" ]; then echo "changed"; fi
+    op read op://{{ item.op|quote }} > "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "1password"
   register: fetch_1pass
@@ -18,9 +18,9 @@
 
 - name: Fetch from vault
   ansible.builtin.shell: |
-    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}");
-    if [ ! -r "{{ playbook_dir }}/files/{{ item.file }}" ]; then echo "changed"; fi
-    vault read {{ item.path|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
+    mkdir -p $(dirname "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}")
+    if [ ! -r "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}" ]; then echo "changed"; fi
+    vault read {{ item.path|quote }} > "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "vault"
   register: fetch_vault
