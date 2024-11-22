@@ -1,0 +1,21 @@
+---
+- name: Fetch from web
+  ansible.builtin.get_url:
+    url: item.url
+    dest: "{{ playbook_dir }}/files/{{ item.file }}"
+  with_items: "{{ sources }}"
+  when: item.source == "web"
+
+- name: Fetch from 1password
+  ansible.builtin.shell:
+    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}");
+    op read op://{{ item.op|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
+  with_items: "{{ sources }}"
+  when: item.source == "1password"
+
+- name: Fetch from vault
+  ansible.builtin.shell:
+    mkdir -p $(dirname "{{ playbook_dir }}/files/{{ item.file }}");
+    vault read {{ item.path|quote }} > "{{ playbook_dir }}/files/{{ item.file }}"
+  with_items: "{{ sources }}"
+  when: item.source == "vault"

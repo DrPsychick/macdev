@@ -75,27 +75,40 @@ config:
     - { key: "wvous-br-modifier", type: int, value: 0 }
     - { key: "expose-animation-duration", type: float, value: 0.5 }
 
+sync_files:
+  - { file: "gitconfig", source: "1password", op: "a8n-home/macdev templates/gitconfig" }
+  - { file: "gitconfig-allowed_signers", source: "1password", op: "a8n-home/macdev templates/gitconfig-allowed_signers" }
+  - { file: "gitconfig-private", source: "1password", op: "a8n-home/macdev templates/gitconfig-private" }
+  - { file: "gitconfig-github", source: "1password", op: "a8n-home/macdev templates/gitconfig-github" }
+  - { file: "gitconfig-gitlab", source: "1password", op: "a8n-home/macdev templates/gitconfig-gitlab" }
+  - { file: "gitconfig-work1", source: "1password", op: "a8n-home/macdev templates/gitconfig-work1" }
+  - { file: "gitconfig-work2", source: "1password", op: "a8n-home/macdev templates/gitconfig-work2" }
+  - { file: "gitconfig-work3", source: "1password", op: "a8n-home/macdev templates/gitconfig-work3" }
+  - { file: "registry-config.json", source: "1password", op: "a8n-home/registry config/registry-config.json" }
+sync_templates: []
+
 ## user files and templates:
 # overwrite: replace file on target, if it exists
 # source: "interactive" or "login"
 
-# files you want to copy to the target
 files:
-  #- { name: "file-example", path: "$HOME/file-example", overwrite: true, shell: false }
-
-# templates you want to copy to the target
+  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
+  - { name: "gitconfig-allowed_signers", path: "$HOME/.gitconfig-allowed_signers", overwrite: true }
+  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
+  - { name: "gitconfig-github", path: "$HOME/.gitconfig-github", overwrite: true }
+  - { name: "gitconfig-gitlab", path: "$HOME/.gitconfig-gitlab", overwrite: true }
+  - { name: "gitconfig-work1", path: "$HOME/.gitconfig-work1", overwrite: true }
+  - { name: "gitconfig-work2", path: "$HOME/.gitconfig-work2", overwrite: true }
+  - { name: "gitconfig-work3", path: "$HOME/.gitconfig-work3", overwrite: true }
+  - { name: "registry-config.json", path: "$HOME/Library/Preferences/helm/registry/config.json", overwrite: true }
 templates:
   - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
   - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
   - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true }
-  - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
-  - { name: "gitconfig-work", path: "$HOME/.gitconfig-work", overwrite: true }
-  - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
-  - { name: "registry-config.json", path: "$HOME/Library/Preferences/helm/registry/config.json", overwrite: true }
 
 # instead of copying a file or template, you can define aliases one by one
 shell_aliases:
-  - { name: "updatemac", cmd: "(cd ~/work/git/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
+  - { name: "updatemac", cmd: "(cd ~/work/git/drpsychick/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
   - { name: "rancherVM", cmd: 'LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima" "/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl" shell 0' }
   - { name: "fixvpn", cmd: "sudo route delete -host 85.190.148.133 192.168.1.1; sudo route add -host 85.190.148.133 192.168.1.1" }
 
@@ -108,11 +121,12 @@ ansible_collections:
 brew_packages:
   - { name: ansible, path: "{{brew_bin}}/ansible" }
   - { name: ansible-lint, path: "{{brew_bin}}/ansible-lint" }
+  - { name: asciinema, path: "{{brew_bin}}/asciinema" }
   - { name: awscli, path: "{{ brew_bin }}/aws" }
   - { name: chart-testing, path: "{{brew_bin}}/ct" }
   - { name: dive, path: "{{brew_bin}}/dive" }
   - { name: direnv, path: "{{brew_bin}}/direnv" }
-  - { name: findutils, path: "{{brew_bin}}/findutils" }
+  - { name: findutils, path: "{{brew_bin}}/gfind" }
   - { name: glances, path: "{{brew_bin}}/glances" }
   - { name: gnupg, path: "{{brew_bin}}/gpg" }
   - { name: go, path: "{{brew_bin}}/go" }
@@ -125,6 +139,8 @@ brew_packages:
   - { name: jq, path: "{{brew_bin}}/jq" }
   - { name: k3d, path: "{{brew_bin}}/k3d" }
   - { name: kind, path: "{{brew_bin}}/kind" }
+  - { name: kubecolor, path: "{{brew_bin}}/kubecolor" }
+  - { name: kube-ps1, path: "{{brew_prefix}}/opt/kube-ps1/share/kube-ps1.sh" }
   #- { name: kubectx, path: "{{brew_bin}}/kubectx" }
   #- { name: kubernetes-cli, path: "{{brew_bin}}/kubectl" } # conflicts with Rancher Desktop
   - { name: kubeseal, path: "{{brew_bin}}/kubeseal" }
@@ -141,6 +157,8 @@ brew_packages:
   - { name: qemu, path: "{{brew_bin}}/qemu-img" }
   - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
   - { name: telegraf, path: "{{brew_bin}}/telegraf" }
+  - { name: tenv, path: "{{brew_bin}}/tenv" }
+  - { name: hashicorp/tap/vault, path: "{{brew_bin}}/vault" }
   - { name: wakeonlan, path: "{{brew_bin}}/wakeonlan" }
   - { name: watch, path: "{{brew_bin}}/watch" }
   - { name: yamale, path: "{{brew_bin}}/yamale" }
@@ -176,8 +194,8 @@ brew_cask_packages:
   #- { name: moom, path: "/Applications/Moom.app" }
   - { name: moonlight, path: "/Applications/Moonlight.app" }
   - { name: nordvpn, path: "/Applications/NordVPN.app" }
-  - { name: obs, path: "/Applications/OBS.app" }
-  - { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
+  #- { name: obs, path: "/Applications/OBS.app" }
+  #- { name: obs-virtualcam, path: "{{ brew_prefix }}/Caskroom/obs-virtualcam" }
   - { name: obsidian, path: "/Applications/Obsidian.app" }
   #- { name: openoffice, path: /Applications/OpenOffice.app }
   - { name: postman, path: "/Applications/Postman.app" }
