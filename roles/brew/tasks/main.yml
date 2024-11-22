@@ -23,6 +23,8 @@
   shell: brew tap {{ item }}
   with_items: "{{ brew_taps }}"
   when: brew_taps|default([])|length > 0
+  register: brew_tap
+  changed_when: brew_tap.stdout|regex_search("Cloning")
 
 - name: Upgrade homebrew
   shell: brew upgrade

@@ -2,7 +2,7 @@
 
 # a simple script to print which user name/email is used for your git repos (i.e verify gitconfig).
 
-BASEDIR=${1:="."}
+BASEDIR=${1:-"."}
 
 for d in $(find $BASEDIR -type d -a -name .git); do
   dir=$(dirname $d)

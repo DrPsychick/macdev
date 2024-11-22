@@ -8,7 +8,7 @@
 
 - name: Fetch from 1password
   ansible.builtin.shell: |
-    mkdir -p $(dirname "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}")
+    if [ -n "$(find "{{ playbook_dir }}/{{ target_path }}" -name "{{ item.file }}" -a -newermt "10 minutes ago")" ]; then exit 0; fi
     if [ ! -r "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}" ]; then echo "changed"; fi
     op read op://{{ item.op|quote }} > "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
@@ -18,7 +18,7 @@
 
 - name: Fetch from vault
   ansible.builtin.shell: |
-    mkdir -p $(dirname "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}")
+    if [ -n "$(find "{{ playbook_dir }}/{{ target_path }}" -name "{{ item.file }}" -a -newermt "10 minutes ago")" ]; then exit 0; fi
     if [ ! -r "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}" ]; then echo "changed"; fi
     vault read {{ item.path|quote }} > "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
