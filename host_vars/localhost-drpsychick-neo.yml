@@ -103,6 +103,7 @@ sync_templates: []
 
 files:
   - { name: "git-check-user.sh", path: "$HOME/bin/git-check-user.sh", overwrite: true, mode: 0755 }
+  - { name: "git-check-diff.sh", path: "$HOME/bin/git-check-diff.sh", overwrite: true, mode: 0755 }
   - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
   - { name: "gitconfig-allowed_signers", path: "$HOME/.gitconfig-allowed_signers", overwrite: true }
   - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
