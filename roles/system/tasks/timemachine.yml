@@ -21,9 +21,9 @@
 - name: Add exclusions
   shell: >
     if [ -d {{ item|quote }} ]; then
-      tmutil isexcluded {{ item|quote }} || exit 1;
-      included=$(tmutil isexcluded {{ item|quote }} | grep 'Included');
-      if [ -n "$included" ]; then
+      isexcluded=$(tmutil isexcluded {{ item|quote }})
+      [ $? -ne 0 ] && exit 1
+      if [ -n "$(echo "$isexcluded" | grep 'Included')" ]; then
         tmutil addexclusion {{ item|quote }} && echo "done";
       fi
     else

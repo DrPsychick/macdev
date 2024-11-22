@@ -27,11 +27,21 @@ system:
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "AdminHostInfo", type: string, value: "HostName" }
     - { domain: "/Library/Preferences/com.apple.loginwindow", key: "GuestEnabled", type: bool, value: 0 }
   timemachine:
-#    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
-#    exclusions:
-#      - /Users/muc/Documents
-#      - /Users/Shared/SharedDocs
-#      - /Users/snoopy/Documents
+    destination: "smb://muc@neb%28TimeMachine%29._smb._tcp.local./macbackups"
+    exclusions:
+      - /Users/Shared/SharedDocs
+      - /Users/muc/Documents
+      - /Users/muc/Library/Application Support/MobileSync
+      - /Users/muc/Library/Application Support/rancher-desktop
+      - /Users/muc/Library/Caches
+      - /Users/muc/Library/Containers/com.docker.docker
+      - /Users/muc/Library/Developer/CoreSimulator/Caches
+      - /Users/muc/Library/iTunes/iPhone Software Updates
+      - /Users/muc/Library/iTunes/iPad Software Updates
+      - /Users/muc/work/git
+      - /Users/pascal/Library/Application Support/rancher-desktop
+      - /Users/pascal/Library/Caches
+      - /Users/snoopy/Documents
 
 # Per user configuration
 config:
