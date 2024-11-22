@@ -87,12 +87,6 @@ templates:
 shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/YOUR_MACDEV_DIRECTORY; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
 
-ssh_keys:
-  - { name: "id_rsa", source: "files", path: "id_rsa" }
-  - { name: "id_rsa_private", source: "hashicorp/vault", mount: "", path: "", format: "" }
-  # 1password can integrate directly with SSH
-  # - { name: "id_rsa2", source: "1password", url: "", id: "" }
-
 ansible_collections:
   - { name: community.general }
   # see https://docs.ansible.com/ansible/latest/user_guide/collections_using.html#install-multiple-collections-with-a-requirements-file
