@@ -111,6 +111,9 @@ shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/work/git/drpsychick/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
   - { name: "rancherVM", cmd: 'LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima" "/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl" shell 0' }
   - { name: "fixvpn", cmd: "sudo route delete -host 85.190.148.133 192.168.1.1; sudo route add -host 85.190.148.133 192.168.1.1" }
+  - { name: "ykssh", cmd: "killall gpg-agent; export GPG_TTY=$(tty); export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket); gpgconf --launch gpg-agent" }
+  - { name: "ll", cmd: "ls -lah" }
+  - { name: "kubectl", cmd: "kubecolor" }
 
 ansible_collections:
   - { name: community.general }
