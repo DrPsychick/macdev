@@ -118,7 +118,6 @@ templates:
   - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
   - { name: "finicky.js", path: "$HOME/.finicky.js", overwrite: true }
 
-# instead of copying a file or template, you can define aliases one by one
 shell_aliases:
   - { name: "updatemac", cmd: "(cd ~/work/git/drpsychick/macdev; {{ 'echo \"password for sudo:\"; sudo echo;' if role_sys }} ansible-playbook macdev.yml)" }
   - { name: "rancherVM", cmd: 'LIMA_HOME="$HOME/Library/Application Support/rancher-desktop/lima" "/Applications/Rancher Desktop.app/Contents/Resources/resources/darwin/lima/bin/limactl" shell 0' }
@@ -135,6 +134,7 @@ ansible_collections:
 
 brew_taps:
   - hashicorp/tap
+  - drpsychick/sensei
 
 brew_packages:
   - { name: ansible, path: "{{brew_bin}}/ansible" }
@@ -173,6 +173,7 @@ brew_packages:
   - { name: pre-commit, path: "{{brew_bin}}/pre-commit" }
   - { name: pwgen, path: "{{brew_bin}}/pwgen" }
   - { name: qemu, path: "{{brew_bin}}/qemu-img" }
+  - { name: drpsychick/sensei/sensei, path: "{{brew_bin}}/sensei" }
   - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
   - { name: telegraf, path: "{{brew_bin}}/telegraf" }
   - { name: tenv, path: "{{brew_bin}}/tenv" }
@@ -185,6 +186,7 @@ brew_packages:
 
 brew_cask_packages:
   - { name: 1password, path: "/Applications/1Password.app" }
+  - { name: 1password-cli, path: "{{brew_bin}}/op" }
   #- { name: atom, path: "/Applications/Atom.app" }
   - { name: curseforge, path: "/Applications/CurseForge.app" }
   #- { name: docker, path: /Applications/Docker.app }
