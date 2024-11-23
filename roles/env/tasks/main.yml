@@ -93,7 +93,7 @@
   failed_when: file.stat.exists
 
 - name: Copy files
-  copy: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode={{ item.mode|default("u+rw,go+r") }}
+  copy: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode={{ item.mode|default("u=rw,go=r") }}
   with_items: "{{ files }}"
   when: files|length > 0
 
@@ -125,7 +125,7 @@
   failed_when: template.stat.exists
 
 - name: Copy templates
-  template: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode={{ item.mode|default("u+rw,go+r") }}
+  template: src={{ item.name }} dest={{ item.path }} owner={{ ansible_user_id }} group={{ user_group }} mode={{ item.mode|default("u=rw,go=r") }}
   with_items: "{{ templates }}"
   when: templates|length > 0
 
