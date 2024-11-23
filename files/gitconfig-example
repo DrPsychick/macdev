@@ -1,10 +1,20 @@
 [user]
   name = My Name
   email = my@email.address
+  signingkey = ssh-ed25519 AAA...O
 [core]
   editor = vim
 [push]
   default = simple
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = ~/.gitconfig-allowed_signers
+  # for signing with keys in 1password
+  #program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+  # signing with gpg, for example using a yubikey
+  #gpgsign = true
 
 # enforce git URLs, using ssh instead of https or vice versa
 [url "git@my.service:username"]
