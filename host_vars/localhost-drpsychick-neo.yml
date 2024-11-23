@@ -162,19 +162,20 @@ brew_packages:
   #- { name: kubectx, path: "{{brew_bin}}/kubectx" }
   #- { name: kubernetes-cli, path: "{{brew_bin}}/kubectl" } # conflicts with Rancher Desktop
   - { name: kubeseal, path: "{{brew_bin}}/kubeseal" }
-  - { name: kubeval, path: "{{brew_bin}}/kubeval" }
+  # - { name: kubeval, path: "{{brew_bin}}/kubeval" } # no longer available
   - { name: kustomize, path: "{{brew_bin}}/kustomize" }
   - { name: molecule, path: "{{brew_bin}}/molecule" }
   - { name: mtr, path: "{{brew_sbin}}/mtr" }
   - { name: node, path: "{{brew_bin}}/node" }
   - { name: operator-sdk, path: "{{brew_bin}}/operator-sdk" }
-  - { name: packer, path: "{{ brew_bin }}/packer" }
+  # - { name: packer, path: "{{ brew_bin }}/packer" } # no longer available
   - { name: pinentry-mac, path: "{{brew_bin}}/pinentry-mac" }
   - { name: pre-commit, path: "{{brew_bin}}/pre-commit" }
   - { name: pwgen, path: "{{brew_bin}}/pwgen" }
   - { name: qemu, path: "{{brew_bin}}/qemu-img" }
   - { name: drpsychick/sensei/sensei, path: "{{brew_bin}}/sensei" }
   - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
+  - { name: danielfoehrkn/switch/switch, path: "{{brew_bin}}/switcher" }
   - { name: telegraf, path: "{{brew_bin}}/telegraf" }
   - { name: tenv, path: "{{brew_bin}}/tenv" }
   - { name: hashicorp/tap/vault, path: "{{brew_bin}}/vault" }
