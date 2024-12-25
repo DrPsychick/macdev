@@ -63,6 +63,7 @@ sync_files:
   - { file: "gitconfig-work2", source: "1password", op: "a8n-home/macdev templates/gitconfig-work2" }
   - { file: "gitconfig-work3", source: "1password", op: "a8n-home/macdev templates/gitconfig-work3" }
   - { file: "registry-config.json", source: "1password", op: "a8n-home/registry config/registry-config.json" }
+  - { file: "netrc", source: "1password", op: "a8n-home/.netrc/.netrc" }
 sync_templates: []
 
 ## user files and templates:
@@ -81,6 +82,7 @@ files:
   - { name: "gitconfig-work2", path: "$HOME/.gitconfig-work2", overwrite: true }
   - { name: "gitconfig-work3", path: "$HOME/.gitconfig-work3", overwrite: true }
   - { name: "registry-config.json", path: "$HOME/Library/Preferences/helm/registry/config.json", overwrite: true }
+  - { name: "netrc", path: "$HOME/.netrc", overwrite: true, mode: "u+r,go-rwx" }
 templates:
   - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
   - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }

@@ -95,6 +95,7 @@ sync_files:
   - { file: "gitconfig-work2", source: "1password", op: "a8n-home/macdev templates/gitconfig-work2" }
   - { file: "gitconfig-work3", source: "1password", op: "a8n-home/macdev templates/gitconfig-work3" }
   - { file: "registry-config.json", source: "1password", op: "a8n-home/registry config/registry-config.json" }
+  - { file: "netrc", source: "1password", op: "a8n-home/.netrc/.netrc" }
 sync_templates: []
 
 ## user files and templates:
@@ -102,8 +103,8 @@ sync_templates: []
 # source: "interactive" or "login"
 
 files:
-  - { name: "git-check-user.sh", path: "$HOME/bin/git-check-user.sh", overwrite: true, mode: 0755 }
-  - { name: "git-check-diff.sh", path: "$HOME/bin/git-check-diff.sh", overwrite: true, mode: 0755 }
+  - { name: "git-check-user.sh", path: "$HOME/bin/git-check-user.sh", overwrite: true, mode: "u+rwx,go+rx" }
+  - { name: "git-check-diff.sh", path: "$HOME/bin/git-check-diff.sh", overwrite: true, mode: "u+rwx,go+rx" }
   - { name: "gitconfig", path: "$HOME/.gitconfig", overwrite: true }
   - { name: "gitconfig-allowed_signers", path: "$HOME/.gitconfig-allowed_signers", overwrite: true }
   - { name: "gitconfig-private", path: "$HOME/.gitconfig-private", overwrite: true }
@@ -112,7 +113,8 @@ files:
   - { name: "gitconfig-work1", path: "$HOME/.gitconfig-work1", overwrite: true }
   - { name: "gitconfig-work2", path: "$HOME/.gitconfig-work2", overwrite: true }
   - { name: "gitconfig-work3", path: "$HOME/.gitconfig-work3", overwrite: true }
-  - { name: "registry-config.json", path: "$HOME/Library/Preferences/helm/registry/config.json", overwrite: true }
+  - { name: "registry-config.json", path: "$HOME/Library/Preferences/helm/registry/config.json", overwrite: true, mode: "u+r,go-rw" }
+  - { name: "netrc", path: "$HOME/.netrc", overwrite: true, mode: "u+r,go-rwx" }
 templates:
   - { name: "myfunctions.sh", path: "$HOME/bin/myfunctions.sh", overwrite: true, source: "interactive" }
   - { name: "home-functions.sh", path: "$HOME/bin/home-functions.sh", overwrite: true }
@@ -137,6 +139,7 @@ brew_taps:
   - drpsychick/sensei
 
 brew_packages:
+  - { name: age, path: "{{brew_bin}}/age" }
   - { name: ansible, path: "{{brew_bin}}/ansible" }
   - { name: ansible-lint, path: "{{brew_bin}}/ansible-lint" }
   - { name: asciinema, path: "{{brew_bin}}/asciinema" }
@@ -145,6 +148,8 @@ brew_packages:
   - { name: dive, path: "{{brew_bin}}/dive" }
   - { name: direnv, path: "{{brew_bin}}/direnv" }
   - { name: findutils, path: "{{brew_bin}}/gfind" }
+  - { name: fluxcd/tap/flux, path: "{{brew_bin}}/flux" }
+  - { name: gitlab-ci-local, path: "{{brew_bin}}/gitlab-ci-local" }
   - { name: glances, path: "{{brew_bin}}/glances" }
   - { name: gnupg, path: "{{brew_bin}}/gpg" }
   - { name: go, path: "{{brew_bin}}/go" }
@@ -175,6 +180,7 @@ brew_packages:
   - { name: qemu, path: "{{brew_bin}}/qemu-img" }
   - { name: drpsychick/sensei/sensei, path: "{{brew_bin}}/sensei" }
   - { name: smartmontools, path: "{{brew_bin}}/smartctl" }
+  - { name: sops, path: "{{brew_bin}}/sops" }
   - { name: danielfoehrkn/switch/switch, path: "{{brew_bin}}/switcher" }
   - { name: telegraf, path: "{{brew_bin}}/telegraf" }
   - { name: tenv, path: "{{brew_bin}}/tenv" }
