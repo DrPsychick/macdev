@@ -8,13 +8,13 @@
 
 - name: Fetch from 1password
   ansible.builtin.shell: |
-    if [ -n "$(find "{{ playbook_dir }}/{{ target_path }}" -name "{{ item.file }}" -a -newermt "10 minutes ago")" ]; then exit 0; fi
+    if [ -n "$(find "{{ playbook_dir }}/{{ target_path }}" -name "{{ item.file }}" -a -newermt "10 minutes ago")" ]; then echo "cached"; exit 0; fi
     if [ ! -r "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}" ]; then echo "changed"; fi
     op read op://{{ item.op|quote }} > "{{ playbook_dir }}/{{ target_path }}/{{ item.file }}"
   with_items: "{{ sources }}"
   when: item.source == "1password"
   register: fetch_1pass
-  changed_when: fetch_1pass.stdout|regex_search("changed")
+  changed_when: '"changed" in fetch_1pass.stdout'
 
 - name: Fetch from vault
   ansible.builtin.shell: |

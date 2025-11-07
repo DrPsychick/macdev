@@ -3,7 +3,7 @@
 - name: Install apps (without checksum)
   include_tasks: app.yml
   vars:
-    name: "{{ item.name }}"
+    package: "{{ item.name }}"
     url: "{{ item.url }}"
     app: "{{ item.app }}"
   with_items: "{{ app_packages }}"
@@ -12,7 +12,7 @@
 - name: Install apps (with checksum)
   include_tasks: app.yml
   vars:
-    name: "{{ item.name }}"
+    package: "{{ item.name }}"
     url: "{{ item.url }}"
     app: "{{ item.app }}"
     checksum: "{{ item.checksum }}"

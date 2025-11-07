@@ -24,12 +24,12 @@
   with_items: "{{ brew_taps }}"
   when: brew_taps|default([])|length > 0
   register: brew_tap
-  changed_when: brew_tap.stdout|regex_search("Cloning")
+  changed_when: '"Cloning" in brew_tap.stdout'
 
 - name: Upgrade homebrew
   shell: brew upgrade
   register: brew_upgrade
-  changed_when: brew_upgrade.stdout|length > 1 and not brew_upgrade.stdout|regex_search("No changes to formulae.")
+  changed_when: 'brew_upgrade.stdout|length > 1 and "No changes to formulae." not in brew_upgrade.stdout'
   failed_when: false
 
 - name: Install brew packages
